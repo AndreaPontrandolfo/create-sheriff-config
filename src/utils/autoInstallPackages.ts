@@ -3,6 +3,6 @@ import { detect } from "detect-package-manager";
 
 export const autoInstallPackages = async (packages: string[]) => {
   const pm = await detect();
-  console.log("🚀 ~ file: autoInstallPackages.ts ~ line 7 ~ pm", pm);
+  console.info(`Detected package manager: ${pm}`);
   execSync(`${pm} add -D ${packages.join(" ")}`);
 };

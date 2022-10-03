@@ -8,10 +8,6 @@ var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
@@ -24,7 +20,6 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // node_modules/.pnpm/commander@9.4.1/node_modules/commander/lib/error.js
 var require_error = __commonJS({
@@ -12918,13 +12913,6 @@ var require_normalize = __commonJS({
   }
 });
 
-// index.ts
-var create_sheriff_config_exports = {};
-__export(create_sheriff_config_exports, {
-  setSupportedEslintPlugins: () => setSupportedEslintPlugins
-});
-module.exports = __toCommonJS(create_sheriff_config_exports);
-
 // node_modules/.pnpm/commander@9.4.1/node_modules/commander/esm.mjs
 var import_index = __toESM(require_commander(), 1);
 var {
@@ -13844,7 +13832,7 @@ function ora(options) {
   return new Ora(options);
 }
 
-// spinner.ts
+// src/utils/spinner.ts
 var spinner = ora({
   spinner: "dots"
 });
@@ -13866,7 +13854,7 @@ var spinnerSuccess = (message) => {
   }
 };
 
-// widgets.ts
+// src/utils/widgets.ts
 var widgets = new Command("widgets");
 widgets.command("list").action(async () => {
   updateSpinnerText("Processing ");
@@ -14137,26 +14125,52 @@ async function readPackageUp(options) {
 
 // src/utils/getPackageJsonContents.ts
 var getPackageJsonContents = async () => {
-  const packageJsonContents = await readPackageUp();
-  if (!packageJsonContents) {
-    throw new Error("Package.json not found.");
+  try {
+    const packageJsonContents = await readPackageUp();
+    if (!packageJsonContents) {
+      throw new Error("Package.json not found.");
+    }
+    return packageJsonContents;
+  } catch (error) {
+    throw new Error(`Couldn't parse the package.json. Error: ${error}`);
   }
-  return packageJsonContents;
 };
 
-// index.ts
+// src/utils/setSupportedEslintPlugins.ts
 var setSupportedEslintPlugins = async () => {
   const { packageJson } = await getPackageJsonContents();
   const userProjectDependencies = {
     ...packageJson.dependencies,
     ...packageJson.devDependencies
   };
-  if (userProjectDependencies.oras) {
+  const finalPluginsConfigurationSetup = {
+    playwright: false,
+    next: false,
+    lodash: false
+  };
+  if (userProjectDependencies.playwright) {
     console.info(
-      "'Ora' package found in the project. Setting up support for it..."
+      "'Playwright' package found in the project. Setting up support for it..."
     );
+    finalPluginsConfigurationSetup.playwright = true;
   }
+  if (userProjectDependencies.next) {
+    console.info(
+      "'Next' package found in the project. Setting up support for it..."
+    );
+    finalPluginsConfigurationSetup.next = true;
+  }
+  if (userProjectDependencies.lodash || userProjectDependencies["lodash-es"]) {
+    console.info(
+      "'Lodash' package found in the project. Setting up support for it..."
+    );
+    finalPluginsConfigurationSetup.lodash = true;
+  }
+  console.info("Saving config:");
+  console.table(finalPluginsConfigurationSetup);
 };
+
+// index.ts
 var program2 = new Command();
 program2.description("Our New CLI");
 program2.version("0.0.1");
@@ -14167,8 +14181,4 @@ async function main2() {
 }
 console.log();
 main2();
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  setSupportedEslintPlugins
-});
 /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
