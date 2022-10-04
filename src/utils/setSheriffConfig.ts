@@ -1,5 +1,6 @@
 import { writeFileSync } from "fs";
 import { getPackageJsonContents } from "./getPackageJsonContents";
+import { spinnerSuccess, updateSpinnerText } from "./spinner";
 
 export const setSheriffConfig = async () => {
   const { packageJson } = await getPackageJsonContents();
@@ -34,13 +35,18 @@ export const setSheriffConfig = async () => {
     );
     finalPluginsConfigurationSetup.lodash = true;
   }
-  console.info("Saving '.sheriffrc.json' options:");
+  console.info("'sheriffrc.json' options:");
   console.table(finalPluginsConfigurationSetup);
+  // console.info("Creating 'sheriffrc.json'...");
+  updateSpinnerText("Creating 'sheriffrc.json'...");
   writeFileSync(
     ".sheriffrc.json",
     JSON.stringify(finalPluginsConfigurationSetup, null, 2)
   );
-  console.info("Created '.sheriffrc.json' file at project root.");
+  spinnerSuccess(
+    "Successfully created '.sheriffrc.json' file at project root."
+  );
+  // console.info("Successfully created '.sheriffrc.json' file at project root.");
   // console.dir(finalPluginsConfigurationSetup, {
   //   depth: null,
   //   colors: true,
