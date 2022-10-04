@@ -1,6 +1,7 @@
+import { writeFileSync } from "fs";
 import { getPackageJsonContents } from "./getPackageJsonContents";
 
-export const setSupportedEslintPlugins = async () => {
+export const setSheriffConfig = async () => {
   const { packageJson } = await getPackageJsonContents();
   const userProjectDependencies = {
     ...packageJson.dependencies,
@@ -33,8 +34,13 @@ export const setSupportedEslintPlugins = async () => {
     );
     finalPluginsConfigurationSetup.lodash = true;
   }
-  console.info("Saving config:");
+  console.info("Saving '.sheriffrc.json' options:");
   console.table(finalPluginsConfigurationSetup);
+  writeFileSync(
+    ".sheriffrc.json",
+    JSON.stringify(finalPluginsConfigurationSetup, null, 2)
+  );
+  console.info("Created '.sheriffrc.json' file at project root.");
   // console.dir(finalPluginsConfigurationSetup, {
   //   depth: null,
   //   colors: true,
