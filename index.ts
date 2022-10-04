@@ -6,17 +6,12 @@ import { widgets } from "./src/utils/widgets";
 import { setSheriffConfig } from "./src/utils/setSheriffConfig";
 import { setDependencies } from "./src/utils/setDependencies";
 import { setEslintConfig } from "./src/utils/setEslintConfig";
-
-const program = new Command();
-program.description("Our New CLI");
-program.version("0.0.1");
-program.addCommand(widgets);
+import { setPrettierConfig } from "./src/utils/setPrettierConfig";
 
 async function main() {
   await setEslintConfig();
   await setSheriffConfig();
+  await setPrettierConfig();
   await setDependencies();
-  await program.parseAsync();
 }
-console.log(); // log a new line so there is a nice space
 main();

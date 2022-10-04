@@ -35,7 +35,7 @@ export const setSheriffConfig = async () => {
     );
     finalPluginsConfigurationSetup.lodash = true;
   }
-  console.info("'sheriffrc.json' options:");
+  console.info("'sheriffrc.json' options to be written:");
   console.table(finalPluginsConfigurationSetup);
   // console.info("Creating 'sheriffrc.json'...");
   updateSpinnerText("Creating 'sheriffrc.json'...");

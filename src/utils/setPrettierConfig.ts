@@ -1,0 +1,42 @@
+import { findUp } from "find-up";
+import { writeFileSync } from "fs";
+import { getPackageJsonContents } from "./getPackageJsonContents";
+import { printError } from "./printError";
+
+const prettierConfigRawText = `{
+  "trailingComma": "all",
+  "singleQuote": true,
+  "endOfLine": "auto"
+}`;
+
+export const setPrettierConfig = async () => {
+  const { packageJson } = await getPackageJsonContents();
+  const PREFERRED_PRETTIER_CONFIG_FILE_NAME = ".prettierrc.json";
+  const prettierConfigFileNames = [
+    ".prettierrc",
+    ".prettierrc.json",
+    ".prettierrc.yml",
+    ".prettierrc.yaml",
+    ".prettierrc.json5",
+    ".prettierrc.js",
+    ".prettierrc.cjs",
+    "prettier.config.js",
+    "prettier.config.cjs",
+    ".prettierrc.toml",
+  ];
+  try {
+    const prettierConfigFile = await findUp(prettierConfigFileNames);
+    if (prettierConfigFile || packageJson.prettier) {
+      console.info(
+        `An already present 'prettier' configuration was found in the project. Skipping '${PREFERRED_PRETTIER_CONFIG_FILE_NAME}' file generation and configuration.`
+      );
+      return;
+    }
+    console.info(
+      `No 'prettier' configuration was found in the project. Generating and configuring '${PREFERRED_PRETTIER_CONFIG_FILE_NAME}' file...`
+    );
+    writeFileSync(PREFERRED_PRETTIER_CONFIG_FILE_NAME, prettierConfigRawText);
+  } catch (error) {
+    printError("Couldn't walk up the filesystem", { error });
+  }
+};
