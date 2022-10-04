@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@types/node': ^18.8.0
+  chalk: ^5.0.1
   commander: ^9.4.1
   detect-package-manager: ^2.0.1
   esbuild: ^0.15.10
@@ -11,6 +12,7 @@ specifiers:
 
 dependencies:
   '@types/node': 18.8.0
+  chalk: 5.0.1
   commander: 9.4.1
   detect-package-manager: 2.0.1
   esbuild: 0.15.10

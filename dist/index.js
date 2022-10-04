@@ -577,7 +577,7 @@ var require_command = __commonJS({
     var EventEmitter = require("events").EventEmitter;
     var childProcess = require("child_process");
     var path5 = require("path");
-    var fs3 = require("fs");
+    var fs4 = require("fs");
     var process10 = require("process");
     var { Argument: Argument2, humanReadableArgName } = require_argument();
     var { CommanderError: CommanderError2 } = require_error();
@@ -1008,11 +1008,11 @@ Expecting one of '${allowedValues.join("', '")}'`);
         const sourceExt = [".js", ".ts", ".tsx", ".mjs", ".cjs"];
         function findFile(baseDir, baseName) {
           const localBin = path5.resolve(baseDir, baseName);
-          if (fs3.existsSync(localBin))
+          if (fs4.existsSync(localBin))
             return localBin;
           if (sourceExt.includes(path5.extname(baseName)))
             return void 0;
-          const foundExt = sourceExt.find((ext) => fs3.existsSync(`${localBin}${ext}`));
+          const foundExt = sourceExt.find((ext) => fs4.existsSync(`${localBin}${ext}`));
           if (foundExt)
             return `${localBin}${foundExt}`;
           return void 0;
@@ -1024,7 +1024,7 @@ Expecting one of '${allowedValues.join("', '")}'`);
         if (this._scriptPath) {
           let resolvedScriptPath;
           try {
-            resolvedScriptPath = fs3.realpathSync(this._scriptPath);
+            resolvedScriptPath = fs4.realpathSync(this._scriptPath);
           } catch (err) {
             resolvedScriptPath = this._scriptPath;
           }
@@ -5407,14 +5407,14 @@ var require_async_iterator = __commonJS({
       };
     }
     function readAndResolve(iter) {
-      var resolve = iter[kLastResolve];
-      if (resolve !== null) {
+      var resolve2 = iter[kLastResolve];
+      if (resolve2 !== null) {
         var data = iter[kStream].read();
         if (data !== null) {
           iter[kLastPromise] = null;
           iter[kLastResolve] = null;
           iter[kLastReject] = null;
-          resolve(createIterResult(data, false));
+          resolve2(createIterResult(data, false));
         }
       }
     }
@@ -5422,13 +5422,13 @@ var require_async_iterator = __commonJS({
       process.nextTick(readAndResolve, iter);
     }
     function wrapForNext(lastPromise, iter) {
-      return function(resolve, reject) {
+      return function(resolve2, reject) {
         lastPromise.then(function() {
           if (iter[kEnded]) {
-            resolve(createIterResult(void 0, true));
+            resolve2(createIterResult(void 0, true));
             return;
           }
-          iter[kHandlePromise](resolve, reject);
+          iter[kHandlePromise](resolve2, reject);
         }, reject);
       };
     }
@@ -5448,12 +5448,12 @@ var require_async_iterator = __commonJS({
           return Promise.resolve(createIterResult(void 0, true));
         }
         if (this[kStream].destroyed) {
-          return new Promise(function(resolve, reject) {
+          return new Promise(function(resolve2, reject) {
             process.nextTick(function() {
               if (_this[kError]) {
                 reject(_this[kError]);
               } else {
-                resolve(createIterResult(void 0, true));
+                resolve2(createIterResult(void 0, true));
               }
             });
           });
@@ -5476,13 +5476,13 @@ var require_async_iterator = __commonJS({
       return this;
     }), _defineProperty(_Object$setPrototypeO, "return", function _return() {
       var _this2 = this;
-      return new Promise(function(resolve, reject) {
+      return new Promise(function(resolve2, reject) {
         _this2[kStream].destroy(null, function(err) {
           if (err) {
             reject(err);
             return;
           }
-          resolve(createIterResult(void 0, true));
+          resolve2(createIterResult(void 0, true));
         });
       });
     }), _Object$setPrototypeO), AsyncIteratorPrototype);
@@ -5504,15 +5504,15 @@ var require_async_iterator = __commonJS({
         value: stream._readableState.endEmitted,
         writable: true
       }), _defineProperty(_Object$create, kHandlePromise, {
-        value: function value(resolve, reject) {
+        value: function value(resolve2, reject) {
           var data = iterator[kStream].read();
           if (data) {
             iterator[kLastPromise] = null;
             iterator[kLastResolve] = null;
             iterator[kLastReject] = null;
-            resolve(createIterResult(data, false));
+            resolve2(createIterResult(data, false));
           } else {
-            iterator[kLastResolve] = resolve;
+            iterator[kLastResolve] = resolve2;
             iterator[kLastReject] = reject;
           }
         },
@@ -5531,12 +5531,12 @@ var require_async_iterator = __commonJS({
           iterator[kError] = err;
           return;
         }
-        var resolve = iterator[kLastResolve];
-        if (resolve !== null) {
+        var resolve2 = iterator[kLastResolve];
+        if (resolve2 !== null) {
           iterator[kLastPromise] = null;
           iterator[kLastResolve] = null;
           iterator[kLastReject] = null;
-          resolve(createIterResult(void 0, true));
+          resolve2(createIterResult(void 0, true));
         }
         iterator[kEnded] = true;
       });
@@ -5551,7 +5551,7 @@ var require_async_iterator = __commonJS({
 var require_from = __commonJS({
   "node_modules/.pnpm/readable-stream@3.6.0/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module2) {
     "use strict";
-    function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+    function asyncGeneratorStep(gen, resolve2, reject, _next, _throw, key, arg) {
       try {
         var info = gen[key](arg);
         var value = info.value;
@@ -5560,7 +5560,7 @@ var require_from = __commonJS({
         return;
       }
       if (info.done) {
-        resolve(value);
+        resolve2(value);
       } else {
         Promise.resolve(value).then(_next, _throw);
       }
@@ -5568,13 +5568,13 @@ var require_from = __commonJS({
     function _asyncToGenerator(fn) {
       return function() {
         var self = this, args = arguments;
-        return new Promise(function(resolve, reject) {
+        return new Promise(function(resolve2, reject) {
           var gen = fn.apply(self, args);
           function _next(value) {
-            asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+            asyncGeneratorStep(gen, resolve2, reject, _next, _throw, "next", value);
           }
           function _throw(err) {
-            asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+            asyncGeneratorStep(gen, resolve2, reject, _next, _throw, "throw", err);
           }
           _next(void 0);
         });
@@ -11849,7 +11849,7 @@ var require_hosted_git_info = __commonJS({
     var gitHosts = require_git_host_info();
     var GitHost = module2.exports = require_git_host();
     var LRU = require_lru_cache();
-    var cache = new LRU({ max: 1e3 });
+    var cache2 = new LRU({ max: 1e3 });
     var protocolToRepresentationMap = {
       "git+ssh:": "sshurl",
       "git+https:": "https",
@@ -11872,10 +11872,10 @@ var require_hosted_git_info = __commonJS({
         return;
       }
       const key = giturl + JSON.stringify(opts || {});
-      if (!cache.has(key)) {
-        cache.set(key, fromUrl(giturl, opts));
+      if (!cache2.has(key)) {
+        cache2.set(key, fromUrl(giturl, opts));
       }
-      return cache.get(key);
+      return cache2.get(key);
     };
     function fromUrl(giturl, opts) {
       if (!giturl) {
@@ -12913,6 +12913,1711 @@ var require_normalize = __commonJS({
   }
 });
 
+// node_modules/.pnpm/isexe@2.0.0/node_modules/isexe/windows.js
+var require_windows = __commonJS({
+  "node_modules/.pnpm/isexe@2.0.0/node_modules/isexe/windows.js"(exports, module2) {
+    module2.exports = isexe;
+    isexe.sync = sync;
+    var fs4 = require("fs");
+    function checkPathExt(path5, options) {
+      var pathext = options.pathExt !== void 0 ? options.pathExt : process.env.PATHEXT;
+      if (!pathext) {
+        return true;
+      }
+      pathext = pathext.split(";");
+      if (pathext.indexOf("") !== -1) {
+        return true;
+      }
+      for (var i = 0; i < pathext.length; i++) {
+        var p = pathext[i].toLowerCase();
+        if (p && path5.substr(-p.length).toLowerCase() === p) {
+          return true;
+        }
+      }
+      return false;
+    }
+    function checkStat(stat, path5, options) {
+      if (!stat.isSymbolicLink() && !stat.isFile()) {
+        return false;
+      }
+      return checkPathExt(path5, options);
+    }
+    function isexe(path5, options, cb) {
+      fs4.stat(path5, function(er, stat) {
+        cb(er, er ? false : checkStat(stat, path5, options));
+      });
+    }
+    function sync(path5, options) {
+      return checkStat(fs4.statSync(path5), path5, options);
+    }
+  }
+});
+
+// node_modules/.pnpm/isexe@2.0.0/node_modules/isexe/mode.js
+var require_mode = __commonJS({
+  "node_modules/.pnpm/isexe@2.0.0/node_modules/isexe/mode.js"(exports, module2) {
+    module2.exports = isexe;
+    isexe.sync = sync;
+    var fs4 = require("fs");
+    function isexe(path5, options, cb) {
+      fs4.stat(path5, function(er, stat) {
+        cb(er, er ? false : checkStat(stat, options));
+      });
+    }
+    function sync(path5, options) {
+      return checkStat(fs4.statSync(path5), options);
+    }
+    function checkStat(stat, options) {
+      return stat.isFile() && checkMode(stat, options);
+    }
+    function checkMode(stat, options) {
+      var mod = stat.mode;
+      var uid = stat.uid;
+      var gid = stat.gid;
+      var myUid = options.uid !== void 0 ? options.uid : process.getuid && process.getuid();
+      var myGid = options.gid !== void 0 ? options.gid : process.getgid && process.getgid();
+      var u = parseInt("100", 8);
+      var g = parseInt("010", 8);
+      var o = parseInt("001", 8);
+      var ug = u | g;
+      var ret = mod & o || mod & g && gid === myGid || mod & u && uid === myUid || mod & ug && myUid === 0;
+      return ret;
+    }
+  }
+});
+
+// node_modules/.pnpm/isexe@2.0.0/node_modules/isexe/index.js
+var require_isexe = __commonJS({
+  "node_modules/.pnpm/isexe@2.0.0/node_modules/isexe/index.js"(exports, module2) {
+    var fs4 = require("fs");
+    var core;
+    if (process.platform === "win32" || global.TESTING_WINDOWS) {
+      core = require_windows();
+    } else {
+      core = require_mode();
+    }
+    module2.exports = isexe;
+    isexe.sync = sync;
+    function isexe(path5, options, cb) {
+      if (typeof options === "function") {
+        cb = options;
+        options = {};
+      }
+      if (!cb) {
+        if (typeof Promise !== "function") {
+          throw new TypeError("callback not provided");
+        }
+        return new Promise(function(resolve2, reject) {
+          isexe(path5, options || {}, function(er, is) {
+            if (er) {
+              reject(er);
+            } else {
+              resolve2(is);
+            }
+          });
+        });
+      }
+      core(path5, options || {}, function(er, is) {
+        if (er) {
+          if (er.code === "EACCES" || options && options.ignoreErrors) {
+            er = null;
+            is = false;
+          }
+        }
+        cb(er, is);
+      });
+    }
+    function sync(path5, options) {
+      try {
+        return core.sync(path5, options || {});
+      } catch (er) {
+        if (options && options.ignoreErrors || er.code === "EACCES") {
+          return false;
+        } else {
+          throw er;
+        }
+      }
+    }
+  }
+});
+
+// node_modules/.pnpm/which@2.0.2/node_modules/which/which.js
+var require_which = __commonJS({
+  "node_modules/.pnpm/which@2.0.2/node_modules/which/which.js"(exports, module2) {
+    var isWindows = process.platform === "win32" || process.env.OSTYPE === "cygwin" || process.env.OSTYPE === "msys";
+    var path5 = require("path");
+    var COLON = isWindows ? ";" : ":";
+    var isexe = require_isexe();
+    var getNotFoundError = (cmd) => Object.assign(new Error(`not found: ${cmd}`), { code: "ENOENT" });
+    var getPathInfo = (cmd, opt) => {
+      const colon = opt.colon || COLON;
+      const pathEnv = cmd.match(/\//) || isWindows && cmd.match(/\\/) ? [""] : [
+        ...isWindows ? [process.cwd()] : [],
+        ...(opt.path || process.env.PATH || "").split(colon)
+      ];
+      const pathExtExe = isWindows ? opt.pathExt || process.env.PATHEXT || ".EXE;.CMD;.BAT;.COM" : "";
+      const pathExt = isWindows ? pathExtExe.split(colon) : [""];
+      if (isWindows) {
+        if (cmd.indexOf(".") !== -1 && pathExt[0] !== "")
+          pathExt.unshift("");
+      }
+      return {
+        pathEnv,
+        pathExt,
+        pathExtExe
+      };
+    };
+    var which = (cmd, opt, cb) => {
+      if (typeof opt === "function") {
+        cb = opt;
+        opt = {};
+      }
+      if (!opt)
+        opt = {};
+      const { pathEnv, pathExt, pathExtExe } = getPathInfo(cmd, opt);
+      const found = [];
+      const step = (i) => new Promise((resolve2, reject) => {
+        if (i === pathEnv.length)
+          return opt.all && found.length ? resolve2(found) : reject(getNotFoundError(cmd));
+        const ppRaw = pathEnv[i];
+        const pathPart = /^".*"$/.test(ppRaw) ? ppRaw.slice(1, -1) : ppRaw;
+        const pCmd = path5.join(pathPart, cmd);
+        const p = !pathPart && /^\.[\\\/]/.test(cmd) ? cmd.slice(0, 2) + pCmd : pCmd;
+        resolve2(subStep(p, i, 0));
+      });
+      const subStep = (p, i, ii) => new Promise((resolve2, reject) => {
+        if (ii === pathExt.length)
+          return resolve2(step(i + 1));
+        const ext = pathExt[ii];
+        isexe(p + ext, { pathExt: pathExtExe }, (er, is) => {
+          if (!er && is) {
+            if (opt.all)
+              found.push(p + ext);
+            else
+              return resolve2(p + ext);
+          }
+          return resolve2(subStep(p, i, ii + 1));
+        });
+      });
+      return cb ? step(0).then((res) => cb(null, res), cb) : step(0);
+    };
+    var whichSync = (cmd, opt) => {
+      opt = opt || {};
+      const { pathEnv, pathExt, pathExtExe } = getPathInfo(cmd, opt);
+      const found = [];
+      for (let i = 0; i < pathEnv.length; i++) {
+        const ppRaw = pathEnv[i];
+        const pathPart = /^".*"$/.test(ppRaw) ? ppRaw.slice(1, -1) : ppRaw;
+        const pCmd = path5.join(pathPart, cmd);
+        const p = !pathPart && /^\.[\\\/]/.test(cmd) ? cmd.slice(0, 2) + pCmd : pCmd;
+        for (let j = 0; j < pathExt.length; j++) {
+          const cur = p + pathExt[j];
+          try {
+            const is = isexe.sync(cur, { pathExt: pathExtExe });
+            if (is) {
+              if (opt.all)
+                found.push(cur);
+              else
+                return cur;
+            }
+          } catch (ex) {
+          }
+        }
+      }
+      if (opt.all && found.length)
+        return found;
+      if (opt.nothrow)
+        return null;
+      throw getNotFoundError(cmd);
+    };
+    module2.exports = which;
+    which.sync = whichSync;
+  }
+});
+
+// node_modules/.pnpm/path-key@3.1.1/node_modules/path-key/index.js
+var require_path_key = __commonJS({
+  "node_modules/.pnpm/path-key@3.1.1/node_modules/path-key/index.js"(exports, module2) {
+    "use strict";
+    var pathKey = (options = {}) => {
+      const environment = options.env || process.env;
+      const platform = options.platform || process.platform;
+      if (platform !== "win32") {
+        return "PATH";
+      }
+      return Object.keys(environment).reverse().find((key) => key.toUpperCase() === "PATH") || "Path";
+    };
+    module2.exports = pathKey;
+    module2.exports.default = pathKey;
+  }
+});
+
+// node_modules/.pnpm/cross-spawn@7.0.3/node_modules/cross-spawn/lib/util/resolveCommand.js
+var require_resolveCommand = __commonJS({
+  "node_modules/.pnpm/cross-spawn@7.0.3/node_modules/cross-spawn/lib/util/resolveCommand.js"(exports, module2) {
+    "use strict";
+    var path5 = require("path");
+    var which = require_which();
+    var getPathKey = require_path_key();
+    function resolveCommandAttempt(parsed, withoutPathExt) {
+      const env2 = parsed.options.env || process.env;
+      const cwd = process.cwd();
+      const hasCustomCwd = parsed.options.cwd != null;
+      const shouldSwitchCwd = hasCustomCwd && process.chdir !== void 0 && !process.chdir.disabled;
+      if (shouldSwitchCwd) {
+        try {
+          process.chdir(parsed.options.cwd);
+        } catch (err) {
+        }
+      }
+      let resolved;
+      try {
+        resolved = which.sync(parsed.command, {
+          path: env2[getPathKey({ env: env2 })],
+          pathExt: withoutPathExt ? path5.delimiter : void 0
+        });
+      } catch (e) {
+      } finally {
+        if (shouldSwitchCwd) {
+          process.chdir(cwd);
+        }
+      }
+      if (resolved) {
+        resolved = path5.resolve(hasCustomCwd ? parsed.options.cwd : "", resolved);
+      }
+      return resolved;
+    }
+    function resolveCommand(parsed) {
+      return resolveCommandAttempt(parsed) || resolveCommandAttempt(parsed, true);
+    }
+    module2.exports = resolveCommand;
+  }
+});
+
+// node_modules/.pnpm/cross-spawn@7.0.3/node_modules/cross-spawn/lib/util/escape.js
+var require_escape = __commonJS({
+  "node_modules/.pnpm/cross-spawn@7.0.3/node_modules/cross-spawn/lib/util/escape.js"(exports, module2) {
+    "use strict";
+    var metaCharsRegExp = /([()\][%!^"`<>&|;, *?])/g;
+    function escapeCommand(arg) {
+      arg = arg.replace(metaCharsRegExp, "^$1");
+      return arg;
+    }
+    function escapeArgument(arg, doubleEscapeMetaChars) {
+      arg = `${arg}`;
+      arg = arg.replace(/(\\*)"/g, '$1$1\\"');
+      arg = arg.replace(/(\\*)$/, "$1$1");
+      arg = `"${arg}"`;
+      arg = arg.replace(metaCharsRegExp, "^$1");
+      if (doubleEscapeMetaChars) {
+        arg = arg.replace(metaCharsRegExp, "^$1");
+      }
+      return arg;
+    }
+    module2.exports.command = escapeCommand;
+    module2.exports.argument = escapeArgument;
+  }
+});
+
+// node_modules/.pnpm/shebang-regex@3.0.0/node_modules/shebang-regex/index.js
+var require_shebang_regex = __commonJS({
+  "node_modules/.pnpm/shebang-regex@3.0.0/node_modules/shebang-regex/index.js"(exports, module2) {
+    "use strict";
+    module2.exports = /^#!(.*)/;
+  }
+});
+
+// node_modules/.pnpm/shebang-command@2.0.0/node_modules/shebang-command/index.js
+var require_shebang_command = __commonJS({
+  "node_modules/.pnpm/shebang-command@2.0.0/node_modules/shebang-command/index.js"(exports, module2) {
+    "use strict";
+    var shebangRegex = require_shebang_regex();
+    module2.exports = (string = "") => {
+      const match = string.match(shebangRegex);
+      if (!match) {
+        return null;
+      }
+      const [path5, argument] = match[0].replace(/#! ?/, "").split(" ");
+      const binary = path5.split("/").pop();
+      if (binary === "env") {
+        return argument;
+      }
+      return argument ? `${binary} ${argument}` : binary;
+    };
+  }
+});
+
+// node_modules/.pnpm/cross-spawn@7.0.3/node_modules/cross-spawn/lib/util/readShebang.js
+var require_readShebang = __commonJS({
+  "node_modules/.pnpm/cross-spawn@7.0.3/node_modules/cross-spawn/lib/util/readShebang.js"(exports, module2) {
+    "use strict";
+    var fs4 = require("fs");
+    var shebangCommand = require_shebang_command();
+    function readShebang(command) {
+      const size = 150;
+      const buffer = Buffer.alloc(size);
+      let fd;
+      try {
+        fd = fs4.openSync(command, "r");
+        fs4.readSync(fd, buffer, 0, size, 0);
+        fs4.closeSync(fd);
+      } catch (e) {
+      }
+      return shebangCommand(buffer.toString());
+    }
+    module2.exports = readShebang;
+  }
+});
+
+// node_modules/.pnpm/cross-spawn@7.0.3/node_modules/cross-spawn/lib/parse.js
+var require_parse3 = __commonJS({
+  "node_modules/.pnpm/cross-spawn@7.0.3/node_modules/cross-spawn/lib/parse.js"(exports, module2) {
+    "use strict";
+    var path5 = require("path");
+    var resolveCommand = require_resolveCommand();
+    var escape = require_escape();
+    var readShebang = require_readShebang();
+    var isWin = process.platform === "win32";
+    var isExecutableRegExp = /\.(?:com|exe)$/i;
+    var isCmdShimRegExp = /node_modules[\\/].bin[\\/][^\\/]+\.cmd$/i;
+    function detectShebang(parsed) {
+      parsed.file = resolveCommand(parsed);
+      const shebang = parsed.file && readShebang(parsed.file);
+      if (shebang) {
+        parsed.args.unshift(parsed.file);
+        parsed.command = shebang;
+        return resolveCommand(parsed);
+      }
+      return parsed.file;
+    }
+    function parseNonShell(parsed) {
+      if (!isWin) {
+        return parsed;
+      }
+      const commandFile = detectShebang(parsed);
+      const needsShell = !isExecutableRegExp.test(commandFile);
+      if (parsed.options.forceShell || needsShell) {
+        const needsDoubleEscapeMetaChars = isCmdShimRegExp.test(commandFile);
+        parsed.command = path5.normalize(parsed.command);
+        parsed.command = escape.command(parsed.command);
+        parsed.args = parsed.args.map((arg) => escape.argument(arg, needsDoubleEscapeMetaChars));
+        const shellCommand = [parsed.command].concat(parsed.args).join(" ");
+        parsed.args = ["/d", "/s", "/c", `"${shellCommand}"`];
+        parsed.command = process.env.comspec || "cmd.exe";
+        parsed.options.windowsVerbatimArguments = true;
+      }
+      return parsed;
+    }
+    function parse(command, args, options) {
+      if (args && !Array.isArray(args)) {
+        options = args;
+        args = null;
+      }
+      args = args ? args.slice(0) : [];
+      options = Object.assign({}, options);
+      const parsed = {
+        command,
+        args,
+        options,
+        file: void 0,
+        original: {
+          command,
+          args
+        }
+      };
+      return options.shell ? parsed : parseNonShell(parsed);
+    }
+    module2.exports = parse;
+  }
+});
+
+// node_modules/.pnpm/cross-spawn@7.0.3/node_modules/cross-spawn/lib/enoent.js
+var require_enoent = __commonJS({
+  "node_modules/.pnpm/cross-spawn@7.0.3/node_modules/cross-spawn/lib/enoent.js"(exports, module2) {
+    "use strict";
+    var isWin = process.platform === "win32";
+    function notFoundError(original, syscall) {
+      return Object.assign(new Error(`${syscall} ${original.command} ENOENT`), {
+        code: "ENOENT",
+        errno: "ENOENT",
+        syscall: `${syscall} ${original.command}`,
+        path: original.command,
+        spawnargs: original.args
+      });
+    }
+    function hookChildProcess(cp, parsed) {
+      if (!isWin) {
+        return;
+      }
+      const originalEmit = cp.emit;
+      cp.emit = function(name, arg1) {
+        if (name === "exit") {
+          const err = verifyENOENT(arg1, parsed, "spawn");
+          if (err) {
+            return originalEmit.call(cp, "error", err);
+          }
+        }
+        return originalEmit.apply(cp, arguments);
+      };
+    }
+    function verifyENOENT(status, parsed) {
+      if (isWin && status === 1 && !parsed.file) {
+        return notFoundError(parsed.original, "spawn");
+      }
+      return null;
+    }
+    function verifyENOENTSync(status, parsed) {
+      if (isWin && status === 1 && !parsed.file) {
+        return notFoundError(parsed.original, "spawnSync");
+      }
+      return null;
+    }
+    module2.exports = {
+      hookChildProcess,
+      verifyENOENT,
+      verifyENOENTSync,
+      notFoundError
+    };
+  }
+});
+
+// node_modules/.pnpm/cross-spawn@7.0.3/node_modules/cross-spawn/index.js
+var require_cross_spawn = __commonJS({
+  "node_modules/.pnpm/cross-spawn@7.0.3/node_modules/cross-spawn/index.js"(exports, module2) {
+    "use strict";
+    var cp = require("child_process");
+    var parse = require_parse3();
+    var enoent = require_enoent();
+    function spawn(command, args, options) {
+      const parsed = parse(command, args, options);
+      const spawned = cp.spawn(parsed.command, parsed.args, parsed.options);
+      enoent.hookChildProcess(spawned, parsed);
+      return spawned;
+    }
+    function spawnSync(command, args, options) {
+      const parsed = parse(command, args, options);
+      const result = cp.spawnSync(parsed.command, parsed.args, parsed.options);
+      result.error = result.error || enoent.verifyENOENTSync(result.status, parsed);
+      return result;
+    }
+    module2.exports = spawn;
+    module2.exports.spawn = spawn;
+    module2.exports.sync = spawnSync;
+    module2.exports._parse = parse;
+    module2.exports._enoent = enoent;
+  }
+});
+
+// node_modules/.pnpm/strip-final-newline@2.0.0/node_modules/strip-final-newline/index.js
+var require_strip_final_newline = __commonJS({
+  "node_modules/.pnpm/strip-final-newline@2.0.0/node_modules/strip-final-newline/index.js"(exports, module2) {
+    "use strict";
+    module2.exports = (input) => {
+      const LF = typeof input === "string" ? "\n" : "\n".charCodeAt();
+      const CR = typeof input === "string" ? "\r" : "\r".charCodeAt();
+      if (input[input.length - 1] === LF) {
+        input = input.slice(0, input.length - 1);
+      }
+      if (input[input.length - 1] === CR) {
+        input = input.slice(0, input.length - 1);
+      }
+      return input;
+    };
+  }
+});
+
+// node_modules/.pnpm/npm-run-path@4.0.1/node_modules/npm-run-path/index.js
+var require_npm_run_path = __commonJS({
+  "node_modules/.pnpm/npm-run-path@4.0.1/node_modules/npm-run-path/index.js"(exports, module2) {
+    "use strict";
+    var path5 = require("path");
+    var pathKey = require_path_key();
+    var npmRunPath = (options) => {
+      options = {
+        cwd: process.cwd(),
+        path: process.env[pathKey()],
+        execPath: process.execPath,
+        ...options
+      };
+      let previous;
+      let cwdPath = path5.resolve(options.cwd);
+      const result = [];
+      while (previous !== cwdPath) {
+        result.push(path5.join(cwdPath, "node_modules/.bin"));
+        previous = cwdPath;
+        cwdPath = path5.resolve(cwdPath, "..");
+      }
+      const execPathDir = path5.resolve(options.cwd, options.execPath, "..");
+      result.push(execPathDir);
+      return result.concat(options.path).join(path5.delimiter);
+    };
+    module2.exports = npmRunPath;
+    module2.exports.default = npmRunPath;
+    module2.exports.env = (options) => {
+      options = {
+        env: process.env,
+        ...options
+      };
+      const env2 = { ...options.env };
+      const path6 = pathKey({ env: env2 });
+      options.path = env2[path6];
+      env2[path6] = module2.exports(options);
+      return env2;
+    };
+  }
+});
+
+// node_modules/.pnpm/human-signals@2.1.0/node_modules/human-signals/build/src/core.js
+var require_core2 = __commonJS({
+  "node_modules/.pnpm/human-signals@2.1.0/node_modules/human-signals/build/src/core.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.SIGNALS = void 0;
+    var SIGNALS = [
+      {
+        name: "SIGHUP",
+        number: 1,
+        action: "terminate",
+        description: "Terminal closed",
+        standard: "posix"
+      },
+      {
+        name: "SIGINT",
+        number: 2,
+        action: "terminate",
+        description: "User interruption with CTRL-C",
+        standard: "ansi"
+      },
+      {
+        name: "SIGQUIT",
+        number: 3,
+        action: "core",
+        description: "User interruption with CTRL-\\",
+        standard: "posix"
+      },
+      {
+        name: "SIGILL",
+        number: 4,
+        action: "core",
+        description: "Invalid machine instruction",
+        standard: "ansi"
+      },
+      {
+        name: "SIGTRAP",
+        number: 5,
+        action: "core",
+        description: "Debugger breakpoint",
+        standard: "posix"
+      },
+      {
+        name: "SIGABRT",
+        number: 6,
+        action: "core",
+        description: "Aborted",
+        standard: "ansi"
+      },
+      {
+        name: "SIGIOT",
+        number: 6,
+        action: "core",
+        description: "Aborted",
+        standard: "bsd"
+      },
+      {
+        name: "SIGBUS",
+        number: 7,
+        action: "core",
+        description: "Bus error due to misaligned, non-existing address or paging error",
+        standard: "bsd"
+      },
+      {
+        name: "SIGEMT",
+        number: 7,
+        action: "terminate",
+        description: "Command should be emulated but is not implemented",
+        standard: "other"
+      },
+      {
+        name: "SIGFPE",
+        number: 8,
+        action: "core",
+        description: "Floating point arithmetic error",
+        standard: "ansi"
+      },
+      {
+        name: "SIGKILL",
+        number: 9,
+        action: "terminate",
+        description: "Forced termination",
+        standard: "posix",
+        forced: true
+      },
+      {
+        name: "SIGUSR1",
+        number: 10,
+        action: "terminate",
+        description: "Application-specific signal",
+        standard: "posix"
+      },
+      {
+        name: "SIGSEGV",
+        number: 11,
+        action: "core",
+        description: "Segmentation fault",
+        standard: "ansi"
+      },
+      {
+        name: "SIGUSR2",
+        number: 12,
+        action: "terminate",
+        description: "Application-specific signal",
+        standard: "posix"
+      },
+      {
+        name: "SIGPIPE",
+        number: 13,
+        action: "terminate",
+        description: "Broken pipe or socket",
+        standard: "posix"
+      },
+      {
+        name: "SIGALRM",
+        number: 14,
+        action: "terminate",
+        description: "Timeout or timer",
+        standard: "posix"
+      },
+      {
+        name: "SIGTERM",
+        number: 15,
+        action: "terminate",
+        description: "Termination",
+        standard: "ansi"
+      },
+      {
+        name: "SIGSTKFLT",
+        number: 16,
+        action: "terminate",
+        description: "Stack is empty or overflowed",
+        standard: "other"
+      },
+      {
+        name: "SIGCHLD",
+        number: 17,
+        action: "ignore",
+        description: "Child process terminated, paused or unpaused",
+        standard: "posix"
+      },
+      {
+        name: "SIGCLD",
+        number: 17,
+        action: "ignore",
+        description: "Child process terminated, paused or unpaused",
+        standard: "other"
+      },
+      {
+        name: "SIGCONT",
+        number: 18,
+        action: "unpause",
+        description: "Unpaused",
+        standard: "posix",
+        forced: true
+      },
+      {
+        name: "SIGSTOP",
+        number: 19,
+        action: "pause",
+        description: "Paused",
+        standard: "posix",
+        forced: true
+      },
+      {
+        name: "SIGTSTP",
+        number: 20,
+        action: "pause",
+        description: 'Paused using CTRL-Z or "suspend"',
+        standard: "posix"
+      },
+      {
+        name: "SIGTTIN",
+        number: 21,
+        action: "pause",
+        description: "Background process cannot read terminal input",
+        standard: "posix"
+      },
+      {
+        name: "SIGBREAK",
+        number: 21,
+        action: "terminate",
+        description: "User interruption with CTRL-BREAK",
+        standard: "other"
+      },
+      {
+        name: "SIGTTOU",
+        number: 22,
+        action: "pause",
+        description: "Background process cannot write to terminal output",
+        standard: "posix"
+      },
+      {
+        name: "SIGURG",
+        number: 23,
+        action: "ignore",
+        description: "Socket received out-of-band data",
+        standard: "bsd"
+      },
+      {
+        name: "SIGXCPU",
+        number: 24,
+        action: "core",
+        description: "Process timed out",
+        standard: "bsd"
+      },
+      {
+        name: "SIGXFSZ",
+        number: 25,
+        action: "core",
+        description: "File too big",
+        standard: "bsd"
+      },
+      {
+        name: "SIGVTALRM",
+        number: 26,
+        action: "terminate",
+        description: "Timeout or timer",
+        standard: "bsd"
+      },
+      {
+        name: "SIGPROF",
+        number: 27,
+        action: "terminate",
+        description: "Timeout or timer",
+        standard: "bsd"
+      },
+      {
+        name: "SIGWINCH",
+        number: 28,
+        action: "ignore",
+        description: "Terminal window size changed",
+        standard: "bsd"
+      },
+      {
+        name: "SIGIO",
+        number: 29,
+        action: "terminate",
+        description: "I/O is available",
+        standard: "other"
+      },
+      {
+        name: "SIGPOLL",
+        number: 29,
+        action: "terminate",
+        description: "Watched event",
+        standard: "other"
+      },
+      {
+        name: "SIGINFO",
+        number: 29,
+        action: "ignore",
+        description: "Request for process information",
+        standard: "other"
+      },
+      {
+        name: "SIGPWR",
+        number: 30,
+        action: "terminate",
+        description: "Device running out of power",
+        standard: "systemv"
+      },
+      {
+        name: "SIGSYS",
+        number: 31,
+        action: "core",
+        description: "Invalid system call",
+        standard: "other"
+      },
+      {
+        name: "SIGUNUSED",
+        number: 31,
+        action: "terminate",
+        description: "Invalid system call",
+        standard: "other"
+      }
+    ];
+    exports.SIGNALS = SIGNALS;
+  }
+});
+
+// node_modules/.pnpm/human-signals@2.1.0/node_modules/human-signals/build/src/realtime.js
+var require_realtime = __commonJS({
+  "node_modules/.pnpm/human-signals@2.1.0/node_modules/human-signals/build/src/realtime.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.SIGRTMAX = exports.getRealtimeSignals = void 0;
+    var getRealtimeSignals = function() {
+      const length = SIGRTMAX - SIGRTMIN + 1;
+      return Array.from({ length }, getRealtimeSignal);
+    };
+    exports.getRealtimeSignals = getRealtimeSignals;
+    var getRealtimeSignal = function(value, index) {
+      return {
+        name: `SIGRT${index + 1}`,
+        number: SIGRTMIN + index,
+        action: "terminate",
+        description: "Application-specific signal (realtime)",
+        standard: "posix"
+      };
+    };
+    var SIGRTMIN = 34;
+    var SIGRTMAX = 64;
+    exports.SIGRTMAX = SIGRTMAX;
+  }
+});
+
+// node_modules/.pnpm/human-signals@2.1.0/node_modules/human-signals/build/src/signals.js
+var require_signals2 = __commonJS({
+  "node_modules/.pnpm/human-signals@2.1.0/node_modules/human-signals/build/src/signals.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.getSignals = void 0;
+    var _os = require("os");
+    var _core = require_core2();
+    var _realtime = require_realtime();
+    var getSignals = function() {
+      const realtimeSignals = (0, _realtime.getRealtimeSignals)();
+      const signals = [..._core.SIGNALS, ...realtimeSignals].map(normalizeSignal);
+      return signals;
+    };
+    exports.getSignals = getSignals;
+    var normalizeSignal = function({
+      name,
+      number: defaultNumber,
+      description,
+      action,
+      forced = false,
+      standard
+    }) {
+      const {
+        signals: { [name]: constantSignal }
+      } = _os.constants;
+      const supported = constantSignal !== void 0;
+      const number = supported ? constantSignal : defaultNumber;
+      return { name, number, description, supported, action, forced, standard };
+    };
+  }
+});
+
+// node_modules/.pnpm/human-signals@2.1.0/node_modules/human-signals/build/src/main.js
+var require_main = __commonJS({
+  "node_modules/.pnpm/human-signals@2.1.0/node_modules/human-signals/build/src/main.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.signalsByNumber = exports.signalsByName = void 0;
+    var _os = require("os");
+    var _signals = require_signals2();
+    var _realtime = require_realtime();
+    var getSignalsByName = function() {
+      const signals = (0, _signals.getSignals)();
+      return signals.reduce(getSignalByName, {});
+    };
+    var getSignalByName = function(signalByNameMemo, { name, number, description, supported, action, forced, standard }) {
+      return {
+        ...signalByNameMemo,
+        [name]: { name, number, description, supported, action, forced, standard }
+      };
+    };
+    var signalsByName = getSignalsByName();
+    exports.signalsByName = signalsByName;
+    var getSignalsByNumber = function() {
+      const signals = (0, _signals.getSignals)();
+      const length = _realtime.SIGRTMAX + 1;
+      const signalsA = Array.from({ length }, (value, number) => getSignalByNumber(number, signals));
+      return Object.assign({}, ...signalsA);
+    };
+    var getSignalByNumber = function(number, signals) {
+      const signal = findSignalByNumber(number, signals);
+      if (signal === void 0) {
+        return {};
+      }
+      const { name, description, supported, action, forced, standard } = signal;
+      return {
+        [number]: {
+          name,
+          number,
+          description,
+          supported,
+          action,
+          forced,
+          standard
+        }
+      };
+    };
+    var findSignalByNumber = function(number, signals) {
+      const signal = signals.find(({ name }) => _os.constants.signals[name] === number);
+      if (signal !== void 0) {
+        return signal;
+      }
+      return signals.find((signalA) => signalA.number === number);
+    };
+    var signalsByNumber = getSignalsByNumber();
+    exports.signalsByNumber = signalsByNumber;
+  }
+});
+
+// node_modules/.pnpm/execa@5.1.1/node_modules/execa/lib/error.js
+var require_error2 = __commonJS({
+  "node_modules/.pnpm/execa@5.1.1/node_modules/execa/lib/error.js"(exports, module2) {
+    "use strict";
+    var { signalsByName } = require_main();
+    var getErrorPrefix = ({ timedOut, timeout, errorCode, signal, signalDescription, exitCode, isCanceled }) => {
+      if (timedOut) {
+        return `timed out after ${timeout} milliseconds`;
+      }
+      if (isCanceled) {
+        return "was canceled";
+      }
+      if (errorCode !== void 0) {
+        return `failed with ${errorCode}`;
+      }
+      if (signal !== void 0) {
+        return `was killed with ${signal} (${signalDescription})`;
+      }
+      if (exitCode !== void 0) {
+        return `failed with exit code ${exitCode}`;
+      }
+      return "failed";
+    };
+    var makeError = ({
+      stdout,
+      stderr,
+      all,
+      error,
+      signal,
+      exitCode,
+      command,
+      escapedCommand,
+      timedOut,
+      isCanceled,
+      killed,
+      parsed: { options: { timeout } }
+    }) => {
+      exitCode = exitCode === null ? void 0 : exitCode;
+      signal = signal === null ? void 0 : signal;
+      const signalDescription = signal === void 0 ? void 0 : signalsByName[signal].description;
+      const errorCode = error && error.code;
+      const prefix = getErrorPrefix({ timedOut, timeout, errorCode, signal, signalDescription, exitCode, isCanceled });
+      const execaMessage = `Command ${prefix}: ${command}`;
+      const isError = Object.prototype.toString.call(error) === "[object Error]";
+      const shortMessage = isError ? `${execaMessage}
+${error.message}` : execaMessage;
+      const message = [shortMessage, stderr, stdout].filter(Boolean).join("\n");
+      if (isError) {
+        error.originalMessage = error.message;
+        error.message = message;
+      } else {
+        error = new Error(message);
+      }
+      error.shortMessage = shortMessage;
+      error.command = command;
+      error.escapedCommand = escapedCommand;
+      error.exitCode = exitCode;
+      error.signal = signal;
+      error.signalDescription = signalDescription;
+      error.stdout = stdout;
+      error.stderr = stderr;
+      if (all !== void 0) {
+        error.all = all;
+      }
+      if ("bufferedData" in error) {
+        delete error.bufferedData;
+      }
+      error.failed = true;
+      error.timedOut = Boolean(timedOut);
+      error.isCanceled = isCanceled;
+      error.killed = killed && !timedOut;
+      return error;
+    };
+    module2.exports = makeError;
+  }
+});
+
+// node_modules/.pnpm/execa@5.1.1/node_modules/execa/lib/stdio.js
+var require_stdio = __commonJS({
+  "node_modules/.pnpm/execa@5.1.1/node_modules/execa/lib/stdio.js"(exports, module2) {
+    "use strict";
+    var aliases = ["stdin", "stdout", "stderr"];
+    var hasAlias = (options) => aliases.some((alias) => options[alias] !== void 0);
+    var normalizeStdio = (options) => {
+      if (!options) {
+        return;
+      }
+      const { stdio } = options;
+      if (stdio === void 0) {
+        return aliases.map((alias) => options[alias]);
+      }
+      if (hasAlias(options)) {
+        throw new Error(`It's not possible to provide \`stdio\` in combination with one of ${aliases.map((alias) => `\`${alias}\``).join(", ")}`);
+      }
+      if (typeof stdio === "string") {
+        return stdio;
+      }
+      if (!Array.isArray(stdio)) {
+        throw new TypeError(`Expected \`stdio\` to be of type \`string\` or \`Array\`, got \`${typeof stdio}\``);
+      }
+      const length = Math.max(stdio.length, aliases.length);
+      return Array.from({ length }, (value, index) => stdio[index]);
+    };
+    module2.exports = normalizeStdio;
+    module2.exports.node = (options) => {
+      const stdio = normalizeStdio(options);
+      if (stdio === "ipc") {
+        return "ipc";
+      }
+      if (stdio === void 0 || typeof stdio === "string") {
+        return [stdio, stdio, stdio, "ipc"];
+      }
+      if (stdio.includes("ipc")) {
+        return stdio;
+      }
+      return [...stdio, "ipc"];
+    };
+  }
+});
+
+// node_modules/.pnpm/execa@5.1.1/node_modules/execa/lib/kill.js
+var require_kill = __commonJS({
+  "node_modules/.pnpm/execa@5.1.1/node_modules/execa/lib/kill.js"(exports, module2) {
+    "use strict";
+    var os2 = require("os");
+    var onExit = require_signal_exit();
+    var DEFAULT_FORCE_KILL_TIMEOUT = 1e3 * 5;
+    var spawnedKill = (kill, signal = "SIGTERM", options = {}) => {
+      const killResult = kill(signal);
+      setKillTimeout(kill, signal, options, killResult);
+      return killResult;
+    };
+    var setKillTimeout = (kill, signal, options, killResult) => {
+      if (!shouldForceKill(signal, options, killResult)) {
+        return;
+      }
+      const timeout = getForceKillAfterTimeout(options);
+      const t = setTimeout(() => {
+        kill("SIGKILL");
+      }, timeout);
+      if (t.unref) {
+        t.unref();
+      }
+    };
+    var shouldForceKill = (signal, { forceKillAfterTimeout }, killResult) => {
+      return isSigterm(signal) && forceKillAfterTimeout !== false && killResult;
+    };
+    var isSigterm = (signal) => {
+      return signal === os2.constants.signals.SIGTERM || typeof signal === "string" && signal.toUpperCase() === "SIGTERM";
+    };
+    var getForceKillAfterTimeout = ({ forceKillAfterTimeout = true }) => {
+      if (forceKillAfterTimeout === true) {
+        return DEFAULT_FORCE_KILL_TIMEOUT;
+      }
+      if (!Number.isFinite(forceKillAfterTimeout) || forceKillAfterTimeout < 0) {
+        throw new TypeError(`Expected the \`forceKillAfterTimeout\` option to be a non-negative integer, got \`${forceKillAfterTimeout}\` (${typeof forceKillAfterTimeout})`);
+      }
+      return forceKillAfterTimeout;
+    };
+    var spawnedCancel = (spawned, context) => {
+      const killResult = spawned.kill();
+      if (killResult) {
+        context.isCanceled = true;
+      }
+    };
+    var timeoutKill = (spawned, signal, reject) => {
+      spawned.kill(signal);
+      reject(Object.assign(new Error("Timed out"), { timedOut: true, signal }));
+    };
+    var setupTimeout = (spawned, { timeout, killSignal = "SIGTERM" }, spawnedPromise) => {
+      if (timeout === 0 || timeout === void 0) {
+        return spawnedPromise;
+      }
+      let timeoutId;
+      const timeoutPromise = new Promise((resolve2, reject) => {
+        timeoutId = setTimeout(() => {
+          timeoutKill(spawned, killSignal, reject);
+        }, timeout);
+      });
+      const safeSpawnedPromise = spawnedPromise.finally(() => {
+        clearTimeout(timeoutId);
+      });
+      return Promise.race([timeoutPromise, safeSpawnedPromise]);
+    };
+    var validateTimeout = ({ timeout }) => {
+      if (timeout !== void 0 && (!Number.isFinite(timeout) || timeout < 0)) {
+        throw new TypeError(`Expected the \`timeout\` option to be a non-negative integer, got \`${timeout}\` (${typeof timeout})`);
+      }
+    };
+    var setExitHandler = async (spawned, { cleanup, detached }, timedPromise) => {
+      if (!cleanup || detached) {
+        return timedPromise;
+      }
+      const removeExitHandler = onExit(() => {
+        spawned.kill();
+      });
+      return timedPromise.finally(() => {
+        removeExitHandler();
+      });
+    };
+    module2.exports = {
+      spawnedKill,
+      spawnedCancel,
+      setupTimeout,
+      validateTimeout,
+      setExitHandler
+    };
+  }
+});
+
+// node_modules/.pnpm/is-stream@2.0.1/node_modules/is-stream/index.js
+var require_is_stream = __commonJS({
+  "node_modules/.pnpm/is-stream@2.0.1/node_modules/is-stream/index.js"(exports, module2) {
+    "use strict";
+    var isStream = (stream) => stream !== null && typeof stream === "object" && typeof stream.pipe === "function";
+    isStream.writable = (stream) => isStream(stream) && stream.writable !== false && typeof stream._write === "function" && typeof stream._writableState === "object";
+    isStream.readable = (stream) => isStream(stream) && stream.readable !== false && typeof stream._read === "function" && typeof stream._readableState === "object";
+    isStream.duplex = (stream) => isStream.writable(stream) && isStream.readable(stream);
+    isStream.transform = (stream) => isStream.duplex(stream) && typeof stream._transform === "function";
+    module2.exports = isStream;
+  }
+});
+
+// node_modules/.pnpm/get-stream@6.0.1/node_modules/get-stream/buffer-stream.js
+var require_buffer_stream = __commonJS({
+  "node_modules/.pnpm/get-stream@6.0.1/node_modules/get-stream/buffer-stream.js"(exports, module2) {
+    "use strict";
+    var { PassThrough: PassThroughStream } = require("stream");
+    module2.exports = (options) => {
+      options = { ...options };
+      const { array } = options;
+      let { encoding } = options;
+      const isBuffer = encoding === "buffer";
+      let objectMode = false;
+      if (array) {
+        objectMode = !(encoding || isBuffer);
+      } else {
+        encoding = encoding || "utf8";
+      }
+      if (isBuffer) {
+        encoding = null;
+      }
+      const stream = new PassThroughStream({ objectMode });
+      if (encoding) {
+        stream.setEncoding(encoding);
+      }
+      let length = 0;
+      const chunks = [];
+      stream.on("data", (chunk) => {
+        chunks.push(chunk);
+        if (objectMode) {
+          length = chunks.length;
+        } else {
+          length += chunk.length;
+        }
+      });
+      stream.getBufferedValue = () => {
+        if (array) {
+          return chunks;
+        }
+        return isBuffer ? Buffer.concat(chunks, length) : chunks.join("");
+      };
+      stream.getBufferedLength = () => length;
+      return stream;
+    };
+  }
+});
+
+// node_modules/.pnpm/get-stream@6.0.1/node_modules/get-stream/index.js
+var require_get_stream = __commonJS({
+  "node_modules/.pnpm/get-stream@6.0.1/node_modules/get-stream/index.js"(exports, module2) {
+    "use strict";
+    var { constants: BufferConstants } = require("buffer");
+    var stream = require("stream");
+    var { promisify } = require("util");
+    var bufferStream = require_buffer_stream();
+    var streamPipelinePromisified = promisify(stream.pipeline);
+    var MaxBufferError = class extends Error {
+      constructor() {
+        super("maxBuffer exceeded");
+        this.name = "MaxBufferError";
+      }
+    };
+    async function getStream(inputStream, options) {
+      if (!inputStream) {
+        throw new Error("Expected a stream");
+      }
+      options = {
+        maxBuffer: Infinity,
+        ...options
+      };
+      const { maxBuffer } = options;
+      const stream2 = bufferStream(options);
+      await new Promise((resolve2, reject) => {
+        const rejectPromise = (error) => {
+          if (error && stream2.getBufferedLength() <= BufferConstants.MAX_LENGTH) {
+            error.bufferedData = stream2.getBufferedValue();
+          }
+          reject(error);
+        };
+        (async () => {
+          try {
+            await streamPipelinePromisified(inputStream, stream2);
+            resolve2();
+          } catch (error) {
+            rejectPromise(error);
+          }
+        })();
+        stream2.on("data", () => {
+          if (stream2.getBufferedLength() > maxBuffer) {
+            rejectPromise(new MaxBufferError());
+          }
+        });
+      });
+      return stream2.getBufferedValue();
+    }
+    module2.exports = getStream;
+    module2.exports.buffer = (stream2, options) => getStream(stream2, { ...options, encoding: "buffer" });
+    module2.exports.array = (stream2, options) => getStream(stream2, { ...options, array: true });
+    module2.exports.MaxBufferError = MaxBufferError;
+  }
+});
+
+// node_modules/.pnpm/merge-stream@2.0.0/node_modules/merge-stream/index.js
+var require_merge_stream = __commonJS({
+  "node_modules/.pnpm/merge-stream@2.0.0/node_modules/merge-stream/index.js"(exports, module2) {
+    "use strict";
+    var { PassThrough } = require("stream");
+    module2.exports = function() {
+      var sources = [];
+      var output = new PassThrough({ objectMode: true });
+      output.setMaxListeners(0);
+      output.add = add;
+      output.isEmpty = isEmpty;
+      output.on("unpipe", remove);
+      Array.prototype.slice.call(arguments).forEach(add);
+      return output;
+      function add(source) {
+        if (Array.isArray(source)) {
+          source.forEach(add);
+          return this;
+        }
+        sources.push(source);
+        source.once("end", remove.bind(null, source));
+        source.once("error", output.emit.bind(output, "error"));
+        source.pipe(output, { end: false });
+        return this;
+      }
+      function isEmpty() {
+        return sources.length == 0;
+      }
+      function remove(source) {
+        sources = sources.filter(function(it) {
+          return it !== source;
+        });
+        if (!sources.length && output.readable) {
+          output.end();
+        }
+      }
+    };
+  }
+});
+
+// node_modules/.pnpm/execa@5.1.1/node_modules/execa/lib/stream.js
+var require_stream2 = __commonJS({
+  "node_modules/.pnpm/execa@5.1.1/node_modules/execa/lib/stream.js"(exports, module2) {
+    "use strict";
+    var isStream = require_is_stream();
+    var getStream = require_get_stream();
+    var mergeStream = require_merge_stream();
+    var handleInput = (spawned, input) => {
+      if (input === void 0 || spawned.stdin === void 0) {
+        return;
+      }
+      if (isStream(input)) {
+        input.pipe(spawned.stdin);
+      } else {
+        spawned.stdin.end(input);
+      }
+    };
+    var makeAllStream = (spawned, { all }) => {
+      if (!all || !spawned.stdout && !spawned.stderr) {
+        return;
+      }
+      const mixed = mergeStream();
+      if (spawned.stdout) {
+        mixed.add(spawned.stdout);
+      }
+      if (spawned.stderr) {
+        mixed.add(spawned.stderr);
+      }
+      return mixed;
+    };
+    var getBufferedData = async (stream, streamPromise) => {
+      if (!stream) {
+        return;
+      }
+      stream.destroy();
+      try {
+        return await streamPromise;
+      } catch (error) {
+        return error.bufferedData;
+      }
+    };
+    var getStreamPromise = (stream, { encoding, buffer, maxBuffer }) => {
+      if (!stream || !buffer) {
+        return;
+      }
+      if (encoding) {
+        return getStream(stream, { encoding, maxBuffer });
+      }
+      return getStream.buffer(stream, { maxBuffer });
+    };
+    var getSpawnedResult = async ({ stdout, stderr, all }, { encoding, buffer, maxBuffer }, processDone) => {
+      const stdoutPromise = getStreamPromise(stdout, { encoding, buffer, maxBuffer });
+      const stderrPromise = getStreamPromise(stderr, { encoding, buffer, maxBuffer });
+      const allPromise = getStreamPromise(all, { encoding, buffer, maxBuffer: maxBuffer * 2 });
+      try {
+        return await Promise.all([processDone, stdoutPromise, stderrPromise, allPromise]);
+      } catch (error) {
+        return Promise.all([
+          { error, signal: error.signal, timedOut: error.timedOut },
+          getBufferedData(stdout, stdoutPromise),
+          getBufferedData(stderr, stderrPromise),
+          getBufferedData(all, allPromise)
+        ]);
+      }
+    };
+    var validateInputSync = ({ input }) => {
+      if (isStream(input)) {
+        throw new TypeError("The `input` option cannot be a stream in sync mode");
+      }
+    };
+    module2.exports = {
+      handleInput,
+      makeAllStream,
+      getSpawnedResult,
+      validateInputSync
+    };
+  }
+});
+
+// node_modules/.pnpm/execa@5.1.1/node_modules/execa/lib/promise.js
+var require_promise = __commonJS({
+  "node_modules/.pnpm/execa@5.1.1/node_modules/execa/lib/promise.js"(exports, module2) {
+    "use strict";
+    var nativePromisePrototype = (async () => {
+    })().constructor.prototype;
+    var descriptors = ["then", "catch", "finally"].map((property) => [
+      property,
+      Reflect.getOwnPropertyDescriptor(nativePromisePrototype, property)
+    ]);
+    var mergePromise = (spawned, promise) => {
+      for (const [property, descriptor] of descriptors) {
+        const value = typeof promise === "function" ? (...args) => Reflect.apply(descriptor.value, promise(), args) : descriptor.value.bind(promise);
+        Reflect.defineProperty(spawned, property, { ...descriptor, value });
+      }
+      return spawned;
+    };
+    var getSpawnedPromise = (spawned) => {
+      return new Promise((resolve2, reject) => {
+        spawned.on("exit", (exitCode, signal) => {
+          resolve2({ exitCode, signal });
+        });
+        spawned.on("error", (error) => {
+          reject(error);
+        });
+        if (spawned.stdin) {
+          spawned.stdin.on("error", (error) => {
+            reject(error);
+          });
+        }
+      });
+    };
+    module2.exports = {
+      mergePromise,
+      getSpawnedPromise
+    };
+  }
+});
+
+// node_modules/.pnpm/execa@5.1.1/node_modules/execa/lib/command.js
+var require_command2 = __commonJS({
+  "node_modules/.pnpm/execa@5.1.1/node_modules/execa/lib/command.js"(exports, module2) {
+    "use strict";
+    var normalizeArgs = (file, args = []) => {
+      if (!Array.isArray(args)) {
+        return [file];
+      }
+      return [file, ...args];
+    };
+    var NO_ESCAPE_REGEXP = /^[\w.-]+$/;
+    var DOUBLE_QUOTES_REGEXP = /"/g;
+    var escapeArg = (arg) => {
+      if (typeof arg !== "string" || NO_ESCAPE_REGEXP.test(arg)) {
+        return arg;
+      }
+      return `"${arg.replace(DOUBLE_QUOTES_REGEXP, '\\"')}"`;
+    };
+    var joinCommand = (file, args) => {
+      return normalizeArgs(file, args).join(" ");
+    };
+    var getEscapedCommand = (file, args) => {
+      return normalizeArgs(file, args).map((arg) => escapeArg(arg)).join(" ");
+    };
+    var SPACES_REGEXP = / +/g;
+    var parseCommand = (command) => {
+      const tokens = [];
+      for (const token of command.trim().split(SPACES_REGEXP)) {
+        const previousToken = tokens[tokens.length - 1];
+        if (previousToken && previousToken.endsWith("\\")) {
+          tokens[tokens.length - 1] = `${previousToken.slice(0, -1)} ${token}`;
+        } else {
+          tokens.push(token);
+        }
+      }
+      return tokens;
+    };
+    module2.exports = {
+      joinCommand,
+      getEscapedCommand,
+      parseCommand
+    };
+  }
+});
+
+// node_modules/.pnpm/execa@5.1.1/node_modules/execa/index.js
+var require_execa = __commonJS({
+  "node_modules/.pnpm/execa@5.1.1/node_modules/execa/index.js"(exports, module2) {
+    "use strict";
+    var path5 = require("path");
+    var childProcess = require("child_process");
+    var crossSpawn = require_cross_spawn();
+    var stripFinalNewline = require_strip_final_newline();
+    var npmRunPath = require_npm_run_path();
+    var onetime2 = require_onetime();
+    var makeError = require_error2();
+    var normalizeStdio = require_stdio();
+    var { spawnedKill, spawnedCancel, setupTimeout, validateTimeout, setExitHandler } = require_kill();
+    var { handleInput, getSpawnedResult, makeAllStream, validateInputSync } = require_stream2();
+    var { mergePromise, getSpawnedPromise } = require_promise();
+    var { joinCommand, parseCommand, getEscapedCommand } = require_command2();
+    var DEFAULT_MAX_BUFFER = 1e3 * 1e3 * 100;
+    var getEnv = ({ env: envOption, extendEnv, preferLocal, localDir, execPath }) => {
+      const env2 = extendEnv ? { ...process.env, ...envOption } : envOption;
+      if (preferLocal) {
+        return npmRunPath.env({ env: env2, cwd: localDir, execPath });
+      }
+      return env2;
+    };
+    var handleArguments = (file, args, options = {}) => {
+      const parsed = crossSpawn._parse(file, args, options);
+      file = parsed.command;
+      args = parsed.args;
+      options = parsed.options;
+      options = {
+        maxBuffer: DEFAULT_MAX_BUFFER,
+        buffer: true,
+        stripFinalNewline: true,
+        extendEnv: true,
+        preferLocal: false,
+        localDir: options.cwd || process.cwd(),
+        execPath: process.execPath,
+        encoding: "utf8",
+        reject: true,
+        cleanup: true,
+        all: false,
+        windowsHide: true,
+        ...options
+      };
+      options.env = getEnv(options);
+      options.stdio = normalizeStdio(options);
+      if (process.platform === "win32" && path5.basename(file, ".exe") === "cmd") {
+        args.unshift("/q");
+      }
+      return { file, args, options, parsed };
+    };
+    var handleOutput = (options, value, error) => {
+      if (typeof value !== "string" && !Buffer.isBuffer(value)) {
+        return error === void 0 ? void 0 : "";
+      }
+      if (options.stripFinalNewline) {
+        return stripFinalNewline(value);
+      }
+      return value;
+    };
+    var execa2 = (file, args, options) => {
+      const parsed = handleArguments(file, args, options);
+      const command = joinCommand(file, args);
+      const escapedCommand = getEscapedCommand(file, args);
+      validateTimeout(parsed.options);
+      let spawned;
+      try {
+        spawned = childProcess.spawn(parsed.file, parsed.args, parsed.options);
+      } catch (error) {
+        const dummySpawned = new childProcess.ChildProcess();
+        const errorPromise = Promise.reject(makeError({
+          error,
+          stdout: "",
+          stderr: "",
+          all: "",
+          command,
+          escapedCommand,
+          parsed,
+          timedOut: false,
+          isCanceled: false,
+          killed: false
+        }));
+        return mergePromise(dummySpawned, errorPromise);
+      }
+      const spawnedPromise = getSpawnedPromise(spawned);
+      const timedPromise = setupTimeout(spawned, parsed.options, spawnedPromise);
+      const processDone = setExitHandler(spawned, parsed.options, timedPromise);
+      const context = { isCanceled: false };
+      spawned.kill = spawnedKill.bind(null, spawned.kill.bind(spawned));
+      spawned.cancel = spawnedCancel.bind(null, spawned, context);
+      const handlePromise = async () => {
+        const [{ error, exitCode, signal, timedOut }, stdoutResult, stderrResult, allResult] = await getSpawnedResult(spawned, parsed.options, processDone);
+        const stdout = handleOutput(parsed.options, stdoutResult);
+        const stderr = handleOutput(parsed.options, stderrResult);
+        const all = handleOutput(parsed.options, allResult);
+        if (error || exitCode !== 0 || signal !== null) {
+          const returnedError = makeError({
+            error,
+            exitCode,
+            signal,
+            stdout,
+            stderr,
+            all,
+            command,
+            escapedCommand,
+            parsed,
+            timedOut,
+            isCanceled: context.isCanceled,
+            killed: spawned.killed
+          });
+          if (!parsed.options.reject) {
+            return returnedError;
+          }
+          throw returnedError;
+        }
+        return {
+          command,
+          escapedCommand,
+          exitCode: 0,
+          stdout,
+          stderr,
+          all,
+          failed: false,
+          timedOut: false,
+          isCanceled: false,
+          killed: false
+        };
+      };
+      const handlePromiseOnce = onetime2(handlePromise);
+      handleInput(spawned, parsed.options.input);
+      spawned.all = makeAllStream(spawned, parsed.options);
+      return mergePromise(spawned, handlePromiseOnce);
+    };
+    module2.exports = execa2;
+    module2.exports.sync = (file, args, options) => {
+      const parsed = handleArguments(file, args, options);
+      const command = joinCommand(file, args);
+      const escapedCommand = getEscapedCommand(file, args);
+      validateInputSync(parsed.options);
+      let result;
+      try {
+        result = childProcess.spawnSync(parsed.file, parsed.args, parsed.options);
+      } catch (error) {
+        throw makeError({
+          error,
+          stdout: "",
+          stderr: "",
+          all: "",
+          command,
+          escapedCommand,
+          parsed,
+          timedOut: false,
+          isCanceled: false,
+          killed: false
+        });
+      }
+      const stdout = handleOutput(parsed.options, result.stdout, result.error);
+      const stderr = handleOutput(parsed.options, result.stderr, result.error);
+      if (result.error || result.status !== 0 || result.signal !== null) {
+        const error = makeError({
+          stdout,
+          stderr,
+          error: result.error,
+          signal: result.signal,
+          exitCode: result.status,
+          command,
+          escapedCommand,
+          parsed,
+          timedOut: result.error && result.error.code === "ETIMEDOUT",
+          isCanceled: false,
+          killed: result.signal !== null
+        });
+        if (!parsed.options.reject) {
+          return error;
+        }
+        throw error;
+      }
+      return {
+        command,
+        escapedCommand,
+        exitCode: 0,
+        stdout,
+        stderr,
+        failed: false,
+        timedOut: false,
+        isCanceled: false,
+        killed: false
+      };
+    };
+    module2.exports.command = (command, options) => {
+      const [file, ...args] = parseCommand(command);
+      return execa2(file, args, options);
+    };
+    module2.exports.commandSync = (command, options) => {
+      const [file, ...args] = parseCommand(command);
+      return execa2.sync(file, args, options);
+    };
+    module2.exports.node = (scriptPath, args, options = {}) => {
+      if (args && !Array.isArray(args) && typeof args === "object") {
+        options = args;
+        args = [];
+      }
+      const stdio = normalizeStdio.node(options);
+      const defaultExecArgv = process.execArgv.filter((arg) => !arg.startsWith("--inspect"));
+      const {
+        nodePath = process.execPath,
+        nodeOptions = defaultExecArgv
+      } = options;
+      return execa2(
+        nodePath,
+        [
+          ...nodeOptions,
+          scriptPath,
+          ...Array.isArray(args) ? args : []
+        ],
+        {
+          ...options,
+          stdin: void 0,
+          stdout: void 0,
+          stderr: void 0,
+          stdio,
+          shell: false
+        }
+      );
+    };
+  }
+});
+
 // node_modules/.pnpm/commander@9.4.1/node_modules/commander/esm.mjs
 var import_index = __toESM(require_commander(), 1);
 var {
@@ -13858,7 +15563,7 @@ var spinnerSuccess = (message) => {
 var widgets = new Command("widgets");
 widgets.command("list").action(async () => {
   updateSpinnerText("Processing ");
-  await new Promise((resolve) => setTimeout(resolve, 1e3));
+  await new Promise((resolve2) => setTimeout(resolve2, 1e3));
   spinnerError();
   console.table([
     { id: 1, name: "Tommy" },
@@ -13867,7 +15572,7 @@ widgets.command("list").action(async () => {
 });
 widgets.command("get").argument("<id>", "the id of the widget").option("-f, --format <format>", "the format of the widget").action(async (id, options) => {
   updateSpinnerText("Getting widget " + id);
-  await new Promise((resolve) => setTimeout(resolve, 3e3));
+  await new Promise((resolve2) => setTimeout(resolve2, 3e3));
   spinnerSuccess();
   console.table({ id: 1, name: "Tommy" });
 });
@@ -13950,18 +15655,18 @@ function pLimit(concurrency) {
       queue.dequeue()();
     }
   };
-  const run = async (fn, resolve, args) => {
+  const run = async (fn, resolve2, args) => {
     activeCount++;
     const result = (async () => fn(...args))();
-    resolve(result);
+    resolve2(result);
     try {
       await result;
     } catch {
     }
     next();
   };
-  const enqueue = (fn, resolve, args) => {
-    queue.enqueue(run.bind(void 0, fn, resolve, args));
+  const enqueue = (fn, resolve2, args) => {
+    queue.enqueue(run.bind(void 0, fn, resolve2, args));
     (async () => {
       await Promise.resolve();
       if (activeCount < concurrency && queue.size > 0) {
@@ -13969,8 +15674,8 @@ function pLimit(concurrency) {
       }
     })();
   };
-  const generator = (fn, ...args) => new Promise((resolve) => {
-    enqueue(fn, resolve, args);
+  const generator = (fn, ...args) => new Promise((resolve2) => {
+    enqueue(fn, resolve2, args);
   });
   Object.defineProperties(generator, {
     activeCount: {
@@ -14123,16 +15828,26 @@ async function readPackageUp(options) {
   };
 }
 
+// src/utils/printError.ts
+var printError = (message, { error } = {}) => {
+  if (error) {
+    throw new Error(source_default.red(`${message}. Error: ${error}`));
+  }
+  if (!error) {
+    throw new Error(source_default.red(`${message}.`));
+  }
+};
+
 // src/utils/getPackageJsonContents.ts
 var getPackageJsonContents = async () => {
   try {
     const packageJsonContents = await readPackageUp();
     if (!packageJsonContents) {
-      throw new Error("Package.json not found.");
+      printError("Package.json not found");
     }
     return packageJsonContents;
   } catch (error) {
-    throw new Error(`Couldn't parse the package.json. Error: ${error}`);
+    printError("Couldn't parse the package.json", { error });
   }
 };
 
@@ -14170,6 +15885,111 @@ var setSupportedEslintPlugins = async () => {
   console.table(finalPluginsConfigurationSetup);
 };
 
+// src/utils/autoInstallPackages.ts
+var import_child_process = require("child_process");
+
+// node_modules/.pnpm/detect-package-manager@2.0.1/node_modules/detect-package-manager/dist/index.mjs
+var import_fs = require("fs");
+var import_path = require("path");
+var import_execa = __toESM(require_execa(), 1);
+async function pathExists2(p) {
+  try {
+    await import_fs.promises.access(p);
+    return true;
+  } catch {
+    return false;
+  }
+}
+var cache = /* @__PURE__ */ new Map();
+function hasGlobalInstallation(pm) {
+  const key = `has_global_${pm}`;
+  if (cache.has(key)) {
+    return Promise.resolve(cache.get(key));
+  }
+  return (0, import_execa.default)(pm, ["--version"]).then((res) => {
+    return /^\d+.\d+.\d+$/.test(res.stdout);
+  }).then((value) => {
+    cache.set(key, value);
+    return value;
+  });
+}
+function getTypeofLockFile(cwd = ".") {
+  const key = `lockfile_${cwd}`;
+  if (cache.has(key)) {
+    return Promise.resolve(cache.get(key));
+  }
+  return Promise.all([
+    pathExists2((0, import_path.resolve)(cwd, "yarn.lock")),
+    pathExists2((0, import_path.resolve)(cwd, "package-lock.json")),
+    pathExists2((0, import_path.resolve)(cwd, "pnpm-lock.yaml"))
+  ]).then(([isYarn, isNpm, isPnpm]) => {
+    let value = null;
+    if (isYarn) {
+      value = "yarn";
+    } else if (isPnpm) {
+      value = "pnpm";
+    } else if (isNpm) {
+      value = "npm";
+    }
+    cache.set(key, value);
+    return value;
+  });
+}
+var detect = async ({ cwd } = {}) => {
+  const type = await getTypeofLockFile(cwd);
+  if (type) {
+    return type;
+  }
+  const [hasYarn, hasPnpm] = await Promise.all([
+    hasGlobalInstallation("yarn"),
+    hasGlobalInstallation("pnpm")
+  ]);
+  if (hasYarn) {
+    return "yarn";
+  }
+  if (hasPnpm) {
+    return "pnpm";
+  }
+  return "npm";
+};
+
+// src/utils/autoInstallPackages.ts
+var autoInstallPackages = async (packages) => {
+  const pm = await detect();
+  console.info(`Detected package manager: ${pm}`);
+  try {
+    (0, import_child_process.execSync)(`${pm} add -D ${packages.join(" ")}`);
+  } catch (error) {
+    printError("Couldn't auto-install the required packages", { error });
+  }
+};
+
+// src/utils/getRequiredPackages.ts
+var getRequiredPackages = async () => {
+  const { packageJson } = await getPackageJsonContents();
+  const userProjectDependencies = {
+    ...packageJson.dependencies,
+    ...packageJson.devDependencies
+  };
+  const requiredPackages = [];
+  if (!userProjectDependencies.eslint) {
+    console.info("No 'eslint' dependency found in the project.");
+    console.info("Installing 'eslint' and 'eslint-config-sheriff'...");
+    requiredPackages.push("eslint");
+  }
+  if (userProjectDependencies.eslint) {
+    console.info("Installing 'eslint-config-sheriff'...");
+  }
+  requiredPackages.push("eslint-config-sheriff");
+  return requiredPackages;
+};
+
+// src/utils/setDependencies.ts
+var setDependencies = async () => {
+  const packages = await getRequiredPackages();
+  await autoInstallPackages(packages);
+};
+
 // index.ts
 var program2 = new Command();
 program2.description("Our New CLI");
@@ -14177,6 +15997,7 @@ program2.version("0.0.1");
 program2.addCommand(widgets);
 async function main2() {
   await setSupportedEslintPlugins();
+  await setDependencies();
   await program2.parseAsync();
 }
 console.log();
