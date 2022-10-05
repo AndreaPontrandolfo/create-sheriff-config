@@ -14182,7 +14182,7 @@ var autoInstallPackages = async (packages) => {
   try {
     (0, import_child_process.execSync)(`${pm} add -D ${packages.join(" ")}`);
     console.info(
-      "'Eslint' and 'eslint-config-sheriff' installed successfully."
+      `${packages.join(" and ")} ${packages.length > 1 ? "were" : "was"} installed successfully.`
     );
   } catch (error) {
     printError("Couldn't auto-install the required packages", { error });
@@ -14218,6 +14218,7 @@ var setDependencies = async () => {
 // src/utils/setEslintConfig.ts
 var import_fs3 = require("fs");
 var eslintConfigRawText = `import sheriff from 'eslint-config-sheriff/recommended';
+
 export default [
   ...sheriff,
   {
@@ -14285,11 +14286,39 @@ var setPrettierConfig = async () => {
   }
 };
 
+// src/utils/setPrettierIgnore.ts
+var import_fs5 = require("fs");
+var prettierIgnoreRawText = `/node_modules/
+/dist/
+/build/
+/artifacts/
+/coverage/
+.git/`;
+var setPrettierIgnore = async () => {
+  const PRETTIER_IGNORE_FILE_NAME = ".prettierignore";
+  try {
+    const prettierIgnoreFile = await findUp(PRETTIER_IGNORE_FILE_NAME);
+    if (prettierIgnoreFile) {
+      console.info(
+        `An already present '${PRETTIER_IGNORE_FILE_NAME}' file was found in the project. Skipping '${PRETTIER_IGNORE_FILE_NAME}' file generation and configuration.`
+      );
+      return;
+    }
+    console.info(
+      `No '${PRETTIER_IGNORE_FILE_NAME}' file was found in the project. Generating and configuring '${PRETTIER_IGNORE_FILE_NAME}' file...`
+    );
+    (0, import_fs5.writeFileSync)(PRETTIER_IGNORE_FILE_NAME, prettierIgnoreRawText);
+  } catch (error) {
+    printError("Couldn't walk up the filesystem", { error });
+  }
+};
+
 // index.ts
 async function main2() {
   await setEslintConfig();
   await setSheriffConfig();
   await setPrettierConfig();
+  await setPrettierIgnore();
   await setDependencies();
 }
 main2();
