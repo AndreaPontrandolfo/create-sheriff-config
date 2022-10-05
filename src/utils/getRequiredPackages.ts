@@ -1,4 +1,5 @@
-import { getPackageJsonContents } from "./getPackageJsonContents";
+import { getPackageJsonContents } from './getPackageJsonContents';
+import { logger } from './logs';
 
 export const getRequiredPackages = async () => {
   const { packageJson } = await getPackageJsonContents();
@@ -10,16 +11,16 @@ export const getRequiredPackages = async () => {
   const requiredPackages: string[] = [];
 
   if (!userProjectDependencies.eslint) {
-    console.info("No 'eslint' dependency found in the project.");
-    console.info("Installing 'eslint' and 'eslint-config-sheriff'...");
-    requiredPackages.push("eslint");
+    logger.silly("No 'eslint' dependency found in the project.");
+    logger.verbose("Installing 'eslint' and 'eslint-config-sheriff'...");
+    requiredPackages.push('eslint');
   }
 
   if (userProjectDependencies.eslint) {
-    console.info("Installing 'eslint-config-sheriff'...");
+    logger.verbose("Installing 'eslint-config-sheriff'...");
   }
 
-  requiredPackages.push("eslint-config-sheriff");
+  requiredPackages.push('eslint-config-sheriff');
 
   return requiredPackages;
 };

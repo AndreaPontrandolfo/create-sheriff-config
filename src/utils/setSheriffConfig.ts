@@ -1,8 +1,12 @@
-import { writeFileSync } from "fs";
-import { getPackageJsonContents } from "./getPackageJsonContents";
-import { spinnerSuccess, updateSpinnerText } from "./spinner";
+import { writeFileSync } from 'fs';
+import { getPackageJsonContents } from './getPackageJsonContents';
+import { logger } from './logs';
+import { printError } from './printError';
+import { printSucces } from './printSucces';
+import { spinnerSuccess, updateSpinnerText } from './spinner';
 
 export const setSheriffConfig = async () => {
+  const SHERIFF_CONFIG_FILE_NAME = '.sheriffrc.json';
   const { packageJson } = await getPackageJsonContents();
   const userProjectDependencies = {
     ...packageJson.dependencies,
@@ -16,40 +20,48 @@ export const setSheriffConfig = async () => {
   };
 
   if (userProjectDependencies.playwright) {
-    console.info(
-      "'Playwright' package found in the project. Setting up support for it..."
+    logger.verbose(
+      "'Playwright' package found in the project. Setting up support for it...",
     );
     finalPluginsConfigurationSetup.playwright = true;
   }
 
   if (userProjectDependencies.next) {
-    console.info(
-      "'Next' package found in the project. Setting up support for it..."
+    logger.verbose(
+      "'Next' package found in the project. Setting up support for it...",
     );
     finalPluginsConfigurationSetup.next = true;
   }
 
-  if (userProjectDependencies.lodash || userProjectDependencies["lodash-es"]) {
-    console.info(
-      "'Lodash' package found in the project. Setting up support for it..."
+  if (userProjectDependencies.lodash || userProjectDependencies['lodash-es']) {
+    logger.verbose(
+      "'Lodash' package found in the project. Setting up support for it...",
     );
     finalPluginsConfigurationSetup.lodash = true;
   }
-  console.info("'sheriffrc.json' options to be written:");
-  console.table(finalPluginsConfigurationSetup);
-  // console.info("Creating 'sheriffrc.json'...");
-  updateSpinnerText("Creating 'sheriffrc.json'...");
-  writeFileSync(
-    ".sheriffrc.json",
-    JSON.stringify(finalPluginsConfigurationSetup, null, 2)
+
+  logger.verbose(
+    "Generating 'sheriffrc.json' with options:",
+    finalPluginsConfigurationSetup,
   );
-  spinnerSuccess(
-    "Successfully created '.sheriffrc.json' file at project root."
-  );
-  // console.info("Successfully created '.sheriffrc.json' file at project root.");
-  // console.dir(finalPluginsConfigurationSetup, {
-  //   depth: null,
-  //   colors: true,
-  //   compact: false,
-  // });
+
+  // updateSpinnerText("Creating 'sheriffrc.json'...");
+  try {
+    writeFileSync(
+      SHERIFF_CONFIG_FILE_NAME,
+      JSON.stringify(finalPluginsConfigurationSetup, null, 2),
+    );
+    printSucces(`Successfully generated ${SHERIFF_CONFIG_FILE_NAME} file`);
+  } catch (error) {
+    printError(
+      `Couldn't write ${SHERIFF_CONFIG_FILE_NAME} file to the filesystem`,
+      {
+        error,
+      },
+    );
+  }
+
+  // spinnerSuccess(
+  //   "Successfully created '.sheriffrc.json' file at project root.",
+  // );
 };

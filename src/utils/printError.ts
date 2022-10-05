@@ -1,15 +1,15 @@
-import chalk from "chalk";
+import { logger } from './logs';
 
 interface Error {
-  error?: string;
+  error?: string | unknown;
 }
 
 export const printError = (message: string, { error }: Error = {}) => {
   if (error) {
-    throw new Error(chalk.red(`${message}. Error: ${error}`));
+    logger.error(new Error(`${message}. Error: ${error}`));
   }
 
   if (!error) {
-    throw new Error(chalk.red(`${message}.`));
+    throw logger.error(new Error(`${message}.`));
   }
 };

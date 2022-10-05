@@ -1,6 +1,8 @@
 import { findUp } from 'find-up';
 import { writeFileSync } from 'fs';
+import { logger } from './logs';
 import { printError } from './printError';
+import { printSucces } from './printSucces';
 
 const eslintConfigRawText = `import sheriff from 'eslint-config-sheriff/recommended';
 
@@ -16,18 +18,28 @@ export const setEslintConfig = async () => {
   try {
     const eslintConfigFile = await findUp(ESLINT_CONFIG_FILE_NAME);
     if (eslintConfigFile) {
-      console.info(
+      logger.verbose(
         `'${ESLINT_CONFIG_FILE_NAME}' file found. Skipping '${ESLINT_CONFIG_FILE_NAME}' file generation and configuration.`,
       );
       return;
     }
-    console.info(
+    logger.verbose(
       `'${ESLINT_CONFIG_FILE_NAME}' file not found. Generating and configuring '${ESLINT_CONFIG_FILE_NAME}' file...`,
     );
-    console.warn(
+    logger.warn(
       'If you have other Eslint configs in your project, remove them.',
     );
-    writeFileSync(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText);
+    try {
+      writeFileSync(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText);
+      printSucces(`Successfully generated ${ESLINT_CONFIG_FILE_NAME} file`);
+    } catch (error) {
+      printError(
+        `Couldn't write ${ESLINT_CONFIG_FILE_NAME} file to the filesystem`,
+        {
+          error,
+        },
+      );
+    }
   } catch (error) {
     printError("Couldn't walk up the filesystem", { error });
   }
