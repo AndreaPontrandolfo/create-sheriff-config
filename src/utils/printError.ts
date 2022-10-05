@@ -6,10 +6,10 @@ interface Error {
 
 export const printError = (message: string, { error }: Error = {}) => {
   if (error) {
-    logger.error(new Error(`${message}. Error: ${error}`));
+    logger.error(new Error(`❌  ${message}. ${error}`));
   }
 
   if (!error) {
-    throw logger.error(new Error(`${message}.`));
+    throw logger.error(new Error(`❌  ${message}.`));
   }
 };

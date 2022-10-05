@@ -3,6 +3,7 @@ import { writeFileSync } from 'fs';
 import { logger } from './logs';
 import { printError } from './printError';
 import { printSucces } from './printSucces';
+import { printWarning } from './printWarning';
 
 const eslintConfigRawText = `import sheriff from 'eslint-config-sheriff/recommended';
 
@@ -26,7 +27,7 @@ export const setEslintConfig = async () => {
     logger.verbose(
       `'${ESLINT_CONFIG_FILE_NAME}' file not found. Generating and configuring '${ESLINT_CONFIG_FILE_NAME}' file...`,
     );
-    logger.warn(
+    printWarning(
       'If you have other Eslint configs in your project, remove them.',
     );
     try {
