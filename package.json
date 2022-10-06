@@ -5,11 +5,19 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx ./index.ts",
-    "build": "tsc --noEmit ./index.ts && esbuild index.ts --bundle --platform=node --format=cjs --outfile=dist/index.js"
+    "build": "tsup"
   },
   "keywords": [],
   "author": "AndreaPontrandolfo",
   "license": "MIT",
+  "tsup": {
+    "entry": [
+      "index.ts"
+    ],
+    "splitting": false,
+    "sourcemap": false,
+    "clean": true
+  },
   "dependencies": {
     "chalk": "^5.0.1",
     "commander": "^9.4.1",
@@ -26,6 +34,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.8.2",
+    "tsup": "^6.2.3",
     "tsx": "^3.9.0"
   }
 }
