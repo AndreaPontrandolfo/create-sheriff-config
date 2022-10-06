@@ -1,5 +1,5 @@
 import { getPackageJsonContents } from './getPackageJsonContents';
-import { logger } from './logs';
+import { logger, unImportantLogger } from './logs';
 
 export const getRequiredPackages = async () => {
   const { packageJson } = await getPackageJsonContents();
@@ -11,7 +11,7 @@ export const getRequiredPackages = async () => {
   const requiredPackages: string[] = [];
 
   if (!userProjectDependencies.eslint) {
-    logger.silly("No 'eslint' dependency found in the project.");
+    unImportantLogger.silly("No 'eslint' dependency found in the project.");
     logger.verbose("Installing 'eslint' and 'eslint-config-sheriff'...");
     requiredPackages.push('eslint');
   }

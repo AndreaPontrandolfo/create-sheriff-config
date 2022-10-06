@@ -1,13 +1,13 @@
 import { execSync } from 'child_process';
 import { detect } from 'detect-package-manager';
-import { logger } from './logs';
+import { unImportantLogger } from './logs';
 import { printError } from './printError';
 import { printSucces } from './printSucces';
 
 export const autoInstallPackages = async (packages: string[]) => {
   try {
     const pm = await detect();
-    logger.silly(`Detected package manager: ${pm}`);
+    unImportantLogger.silly(`Detected package manager: ${pm}`);
     try {
       execSync(`${pm} add -D ${packages.join(' ')}`);
       printSucces(
