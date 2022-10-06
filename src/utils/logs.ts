@@ -8,7 +8,8 @@ export const logger = createLogger({
     format.errors({ stack: true }),
     format.splat(),
     format.json(),
-    format.uncolorize(),
+    format.prettyPrint(),
+    format.colorize(),
   ),
   defaultMeta: { service: 'Test' },
   transports: [
@@ -23,7 +24,7 @@ export const logger = createLogger({
             depth: Infinity,
             colors: true,
             maxArrayLength: Infinity,
-            breakLength: 120,
+            breakLength: 40,
             compact: Infinity,
           },
         }),
