@@ -1,9 +1,9 @@
-import { readPackageUp } from 'read-pkg-up';
+import readPkgUp from 'read-pkg-up';
 import { printError } from './printError';
 
 export const getPackageJsonContents = async () => {
   try {
-    const packageJsonContents = await readPackageUp();
+    const packageJsonContents = await readPkgUp();
     // TODO more appropriate type-guard
     if (!packageJsonContents) {
       printError('Package.json not found');
