@@ -1,4 +1,4 @@
-import { findUp } from 'find-up';
+import findUp from 'find-up';
 import { writeFileSync } from 'fs';
 import { logger } from './logs';
 import { printError } from './printError';

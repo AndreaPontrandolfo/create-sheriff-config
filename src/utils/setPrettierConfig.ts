@@ -1,4 +1,4 @@
-import { findUp } from 'find-up';
+import findUp from 'find-up';
 import { writeFileSync } from 'fs';
 import { getPackageJsonContents } from './getPackageJsonContents';
 import { logger } from './logs';
