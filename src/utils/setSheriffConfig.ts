@@ -14,30 +14,53 @@ export const setSheriffConfig = async () => {
   };
 
   const finalPluginsConfigurationSetup = {
-    playwright: false,
-    next: false,
+    react: false,
     lodash: false,
+    next: false,
+    playwright: false,
   };
 
-  if (userProjectDependencies.playwright) {
-    logger.verbose(
-      "'Playwright' package found in the project. Setting up support for it...",
+  if (!userProjectDependencies) {
+    printError(
+      "Couldn't read project dependencies. Every setting will be set to false",
     );
-    finalPluginsConfigurationSetup.playwright = true;
   }
 
-  if (userProjectDependencies.next) {
-    logger.verbose(
-      "'Next' package found in the project. Setting up support for it...",
-    );
-    finalPluginsConfigurationSetup.next = true;
-  }
+  if (userProjectDependencies) {
+    if (
+      userProjectDependencies.react ||
+      userProjectDependencies['react-scripts'] ||
+      userProjectDependencies.next
+    ) {
+      logger.verbose(
+        "'React' package found in the project. Setting up support for it...",
+      );
+      finalPluginsConfigurationSetup.react = true;
+    }
 
-  if (userProjectDependencies.lodash || userProjectDependencies['lodash-es']) {
-    logger.verbose(
-      "'Lodash' package found in the project. Setting up support for it...",
-    );
-    finalPluginsConfigurationSetup.lodash = true;
+    if (userProjectDependencies.playwright) {
+      logger.verbose(
+        "'Playwright' package found in the project. Setting up support for it...",
+      );
+      finalPluginsConfigurationSetup.playwright = true;
+    }
+
+    if (userProjectDependencies.next) {
+      logger.verbose(
+        "'Next' package found in the project. Setting up support for it...",
+      );
+      finalPluginsConfigurationSetup.next = true;
+    }
+
+    if (
+      userProjectDependencies.lodash ||
+      userProjectDependencies['lodash-es']
+    ) {
+      logger.verbose(
+        "'Lodash' package found in the project. Setting up support for it...",
+      );
+      finalPluginsConfigurationSetup.lodash = true;
+    }
   }
 
   logger.verbose(
