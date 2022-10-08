@@ -5,7 +5,7 @@ import { printError } from './printError';
 import { printSucces } from './printSucces';
 import { printWarning } from './printWarning';
 
-const eslintConfigRawText = `import sheriff from 'eslint-config-sheriff/recommended';
+const eslintConfigRawText = `import sheriff from 'eslint-config-sheriff';
 
 export default [
   ...sheriff,
@@ -28,7 +28,7 @@ export const setEslintConfig = async () => {
       `'${ESLINT_CONFIG_FILE_NAME}' file not found. Generating and configuring '${ESLINT_CONFIG_FILE_NAME}' file...`,
     );
     printWarning(
-      'If you have other Eslint configs in your project, remove them.',
+      'If you have other Eslint configs in your project, remove them',
     );
     try {
       writeFileSync(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText);
