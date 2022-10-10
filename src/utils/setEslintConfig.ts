@@ -24,7 +24,7 @@ export const setEslintConfig = async () => {
 
     if (eslintIgnoreFile) {
       printWarning(
-        `A ${ESLINT_IGNORE_FILE_NAME} file was found. Please remove it and transfer the ignored files list to the ${ESLINT_CONFIG_FILE_NAME} 'ignores' array.`,
+        `A ${ESLINT_IGNORE_FILE_NAME} file was found. Please remove it and transfer the ignored files list to the ${ESLINT_CONFIG_FILE_NAME} 'ignores' array`,
       );
     }
 
