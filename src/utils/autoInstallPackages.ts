@@ -5,11 +5,14 @@ import { printError } from './printError';
 import { printSucces } from './printSucces';
 
 export const autoInstallPackages = async (packages: string[]) => {
+  const packagesLatestVersions = packages.map(
+    (packageName) => `${packageName}@latest`,
+  );
   try {
     const pm = await detect();
     unImportantLogger.silly(`Detected package manager: ${pm}`);
     try {
-      execSync(`${pm} add -D ${packages.join(' ')}`);
+      execSync(`${pm} add -D ${packagesLatestVersions.join(' ')}`);
       printSucces(
         `${packages.join(' and ')} ${
           packages.length > 1 ? 'were' : 'was'
