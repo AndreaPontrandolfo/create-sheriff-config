@@ -18,6 +18,8 @@ export const setSheriffConfig = async () => {
     lodash: false,
     next: false,
     playwright: false,
+    jest: false,
+    vitest: false,
   };
 
   if (!userProjectDependencies) {
@@ -61,14 +63,28 @@ export const setSheriffConfig = async () => {
       );
       finalPluginsConfigurationSetup.lodash = true;
     }
+
+    if (userProjectDependencies.jest) {
+      logger.verbose(
+        "'Jest' package found in the project. Setting up support for it...",
+      );
+      finalPluginsConfigurationSetup.jest = true;
+    }
+
+    if (userProjectDependencies.vitest) {
+      logger.verbose(
+        "'Vitest' package found in the project. Setting up support for it...",
+      );
+      finalPluginsConfigurationSetup.vitest = true;
+    }
   }
 
   logger.verbose(
-    "Generating 'sheriffrc.json' with options:",
+    `Generating ${SHERIFF_CONFIG_FILE_NAME} with options:`,
     finalPluginsConfigurationSetup,
   );
 
-  // updateSpinnerText("Creating 'sheriffrc.json'...");
+  // updateSpinnerText("Creating '.sheriffrc.json'...");
   try {
     writeFileSync(
       SHERIFF_CONFIG_FILE_NAME,
