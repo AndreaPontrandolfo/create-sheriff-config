@@ -7,10 +7,14 @@ import { spinnerSuccess, updateSpinnerText } from './spinner';
 
 export const setSheriffConfig = async () => {
   const SHERIFF_CONFIG_FILE_NAME = '.sheriffrc.json';
-  const { packageJson } = await getPackageJsonContents();
+  const root = await getPackageJsonContents();
+  if (!root) {
+    printError("couldn't read the package.json.");
+    return [];
+  }
   const userProjectDependencies = {
-    ...packageJson.dependencies,
-    ...packageJson.devDependencies,
+    ...root.packageJson.dependencies,
+    ...root.packageJson.devDependencies,
   };
 
   const finalPluginsConfigurationSetup = {

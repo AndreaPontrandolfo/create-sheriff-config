@@ -12,7 +12,11 @@ const prettierConfigRawText = `{
 }`;
 
 export const setPrettierConfig = async () => {
-  const { packageJson } = await getPackageJsonContents();
+  const root = await getPackageJsonContents();
+  if (!root) {
+    printError("couldn't read the package.json.");
+    return [];
+  }
   const PREFERRED_PRETTIER_CONFIG_FILE_NAME = '.prettierrc.json';
   const prettierConfigFileNames = [
     '.prettierrc',
@@ -28,7 +32,7 @@ export const setPrettierConfig = async () => {
   ];
   try {
     const prettierConfigFile = await findUp(prettierConfigFileNames);
-    if (prettierConfigFile || packageJson.prettier) {
+    if (prettierConfigFile || root.packageJson.devDependencies.prettier) {
       logger.verbose(
         `An already present 'prettier' configuration was found in the project. Skipping '${PREFERRED_PRETTIER_CONFIG_FILE_NAME}' file generation and configuration.`,
       );
