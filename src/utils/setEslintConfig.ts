@@ -6,8 +6,9 @@ import { printSucces } from './printSucces';
 import { printWarning } from './printWarning';
 
 const eslintConfigRawText = `import sheriff from 'eslint-config-sheriff';
+import { defineFlatConfig } = from 'eslint-define-config';
 
-export default [...sheriff];`;
+export default defineFlatConfig([...sheriff]);`;
 
 export const setEslintConfig = async () => {
   const ESLINT_CONFIG_FILE_NAME = 'eslint.config.js';
