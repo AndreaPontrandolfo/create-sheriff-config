@@ -6,7 +6,7 @@ import { printSucces } from './printSucces';
 import { printWarning } from './printWarning';
 
 const eslintConfigRawText = `import sheriff from 'eslint-config-sheriff';
-import { defineFlatConfig } = from 'eslint-define-config';
+import { defineFlatConfig } from 'eslint-define-config';
 
 export default defineFlatConfig([...sheriff]);`;
 
