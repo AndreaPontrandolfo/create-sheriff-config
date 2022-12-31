@@ -21,7 +21,7 @@ export const autoInstallPackages = async (
     ) => {
       const projectArgument =
         isFilterRequired && selectedProject
-          ? `--filter=${selectedProject}`
+          ? ` --filter=${selectedProject}`
           : '';
 
       return `${pm} add -D ${packagesLatestVersions.join(
