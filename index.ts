@@ -17,7 +17,6 @@ type Command = Arguments<{
 const command = yargs.argv as Command;
 
 async function main() {
-  console.log('🚀 ~ file: index.ts:14 ~ command', command);
   await setEslintConfig();
   await setSheriffConfig();
   await setPrettierConfig();

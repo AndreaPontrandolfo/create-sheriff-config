@@ -17,14 +17,13 @@ export const autoInstallPackages = async (
       pm: string,
       packagesLatestVersions: string[],
       selectedProject: string | undefined,
+      isFilterRequired = true,
     ) => {
-      console.log(
-        '🚀 ~ file: autoInstallPackages.ts:21 ~ selectedProject',
-        selectedProject,
-      );
-      const projectArgument = selectedProject
-        ? `--filter=${selectedProject}`
-        : '';
+      const projectArgument =
+        isFilterRequired && selectedProject
+          ? `--filter=${selectedProject}`
+          : '';
+
       return `${pm} add -D ${packagesLatestVersions.join(
         ' ',
       )}${projectArgument}`;
@@ -35,6 +34,7 @@ export const autoInstallPackages = async (
       pm,
       packagesLatestVersions,
       selectedProject,
+      false,
     )}`;
     unImportantLogger.silly(`Detected package manager: ${pm}`);
     if (pm === 'pnpm' && selectedProject) {
