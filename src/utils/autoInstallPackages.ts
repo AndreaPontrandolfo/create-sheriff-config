@@ -4,7 +4,10 @@ import { unImportantLogger } from './logs';
 import { printError } from './printError';
 import { printSucces } from './printSucces';
 
-export const autoInstallPackages = async (packages: string[]) => {
+export const autoInstallPackages = async (
+  packages: string[],
+  selectedProject: string | undefined,
+) => {
   const packagesLatestVersions = packages.map(
     (packageName) => `${packageName}@latest`,
   );
@@ -13,14 +16,37 @@ export const autoInstallPackages = async (packages: string[]) => {
     const getInstallationCommand = (
       pm: string,
       packagesLatestVersions: string[],
-    ) => `${pm} add -D ${packagesLatestVersions.join(' ')}`;
+      selectedProject: string | undefined,
+    ) => {
+      console.log(
+        '🚀 ~ file: autoInstallPackages.ts:21 ~ selectedProject',
+        selectedProject,
+      );
+      const projectArgument = selectedProject
+        ? `--filter=${selectedProject}`
+        : '';
+      return `${pm} add -D ${packagesLatestVersions.join(
+        ' ',
+      )}${projectArgument}`;
+    };
     const failedInstallationMessage = `Couldn't auto-install the required packages.
     You have to install them manually yourself.
-    Please run: ${getInstallationCommand(pm, packagesLatestVersions)}`;
+    Please run: ${getInstallationCommand(
+      pm,
+      packagesLatestVersions,
+      selectedProject,
+    )}`;
     unImportantLogger.silly(`Detected package manager: ${pm}`);
+    if (pm === 'pnpm' && selectedProject) {
+      unImportantLogger.silly(
+        `Installing dependendencies in project: ${selectedProject}`,
+      );
+    }
 
     try {
-      execSync(getInstallationCommand(pm, packagesLatestVersions));
+      execSync(
+        getInstallationCommand(pm, packagesLatestVersions, selectedProject),
+      );
       printSucces(
         `${packages.join(' and ')} ${
           packages.length > 1 ? 'were' : 'was'

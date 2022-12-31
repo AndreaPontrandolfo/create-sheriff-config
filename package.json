@@ -28,13 +28,15 @@
     "read-pkg-up": "7.0.1",
     "typescript": "^4.8.4",
     "winston": "^3.8.2",
-    "winston-console-format": "^1.0.8"
+    "winston-console-format": "^1.0.8",
+    "yargs": "^17.6.2"
   },
   "bin": {
     "create-sheriff-config": "./dist/index.js"
   },
   "devDependencies": {
     "@types/node": "^18.8.2",
+    "@types/yargs": "^17.0.18",
     "semantic-release": "^19.0.5",
     "tsup": "^6.2.3",
     "tsx": "^3.9.0"
