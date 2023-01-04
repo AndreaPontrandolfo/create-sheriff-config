@@ -3,8 +3,9 @@ import { printError } from './printError';
 
 interface PackageJsonContents {
   packageJson: {
-    dependencies: Record<string, string>;
-    devDependencies: Record<string, string>;
+    dependencies?: Record<string, string>;
+    devDependencies?: Record<string, string>;
+    type?: 'module' | 'commonjs';
   };
 }
 

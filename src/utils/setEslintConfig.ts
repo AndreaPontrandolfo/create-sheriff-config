@@ -1,14 +1,21 @@
 import findUp from 'find-up';
 import { writeFileSync } from 'fs';
+import { getPackageJsonContents } from './getPackageJsonContents';
 import { logger } from './logs';
 import { printError } from './printError';
 import { printSucces } from './printSucces';
 import { printWarning } from './printWarning';
 
-const eslintConfigRawText = `import sheriff from 'eslint-config-sheriff';
-import { defineFlatConfig } from 'eslint-define-config';
+const eslintConfigRawText = {
+  esm: `import sheriff from 'eslint-config-sheriff';
+  import { defineFlatConfig } from 'eslint-define-config';
 
-export default defineFlatConfig([...sheriff]);`;
+  export default defineFlatConfig([...sheriff]);`,
+  commonjs: `const sheriff = require('eslint-config-sheriff');
+  const { defineFlatConfig } = require('eslint-define-config');
+
+  module.exports = defineFlatConfig([...sheriff]);`,
+};
 
 export const setEslintConfig = async () => {
   const ESLINT_CONFIG_FILE_NAME = 'eslint.config.js';
@@ -40,7 +47,18 @@ export const setEslintConfig = async () => {
     );
 
     try {
-      writeFileSync(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText);
+      const root = await getPackageJsonContents();
+      if (!root) {
+        printError("couldn't read the package.json.");
+        writeFileSync(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText.commonjs);
+      }
+      if (root) {
+        if (root.packageJson.type === 'module') {
+          writeFileSync(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText.esm);
+        } else {
+          writeFileSync(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText.commonjs);
+        }
+      }
       printSucces(`Successfully generated ${ESLINT_CONFIG_FILE_NAME} file`);
     } catch (error) {
       printError(
