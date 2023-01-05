@@ -8,13 +8,13 @@ import { printWarning } from './printWarning';
 
 const eslintConfigRawText = {
   esm: `import sheriff from 'eslint-config-sheriff';
-  import { defineFlatConfig } from 'eslint-define-config';
+import { defineFlatConfig } from 'eslint-define-config';
 
-  export default defineFlatConfig([...sheriff]);`,
+export default defineFlatConfig([...sheriff]);`,
   commonjs: `const sheriff = require('eslint-config-sheriff');
-  const { defineFlatConfig } = require('eslint-define-config');
+const { defineFlatConfig } = require('eslint-define-config');
 
-  module.exports = defineFlatConfig([...sheriff]);`,
+module.exports = defineFlatConfig([...sheriff]);`,
 };
 
 export const setEslintConfig = async () => {
