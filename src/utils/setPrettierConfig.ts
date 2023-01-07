@@ -32,7 +32,7 @@ export const setPrettierConfig = async () => {
   ];
   try {
     const prettierConfigFile = await findUp(prettierConfigFileNames);
-    if (prettierConfigFile || root.packageJson.devDependencies.prettier) {
+    if (prettierConfigFile || root.packageJson?.devDependencies?.prettier) {
       logger.verbose(
         `An already present 'prettier' configuration was found in the project. Skipping '${PREFERRED_PRETTIER_CONFIG_FILE_NAME}' file generation and configuration.`,
       );

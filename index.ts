@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import yargs, { type Arguments } from 'yargs';
+import prompts from 'prompts';
 // import { Command, program } from 'commander';
 // import { widgets } from './src/utils/widgets';
 // import { spinnerError, stopSpinner } from "./src/utils/spinner";
@@ -9,6 +10,7 @@ import { setDependencies } from './src/utils/setDependencies';
 import { setEslintConfig } from './src/utils/setEslintConfig';
 import { setPrettierConfig } from './src/utils/setPrettierConfig';
 import { setPrettierIgnore } from './src/utils/setPrettierIgnore';
+import { logger } from './src/utils/logs';
 
 type Command = Arguments<{
   filter: string | undefined;
@@ -17,11 +19,27 @@ type Command = Arguments<{
 const command = yargs.argv as Command;
 
 async function main() {
-  await setEslintConfig();
-  await setSheriffConfig();
-  await setPrettierConfig();
-  await setPrettierIgnore();
-  await setDependencies(command?.filter);
+  if (command?.filter) {
+    logger.info(
+      `It looks like you are trying to install the sheriff config in a workspace' package.
+Please specify the package' path...`,
+    );
+
+    const response = await prompts({
+      type: 'text',
+      name: 'path',
+      message: 'Package path',
+      initial: '.',
+    });
+
+    logger.verbose(`Selected path: "${response.path}"`);
+  }
+
+  // await setEslintConfig();
+  // await setSheriffConfig();
+  // await setPrettierConfig();
+  // await setPrettierIgnore();
+  // await setDependencies(command?.filter);
 }
 
 main();
