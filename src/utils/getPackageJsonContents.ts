@@ -1,22 +1,13 @@
-import readPkgUp from 'read-pkg-up';
+import { readPackageUp } from 'read-pkg-up';
 import { printError } from './printError';
-
-interface PackageJsonContents {
-  packageJson: {
-    dependencies?: Record<string, string>;
-    devDependencies?: Record<string, string>;
-    type?: 'module' | 'commonjs';
-  };
-}
 
 export const getPackageJsonContents = async () => {
   try {
-    const packageJsonContents = await readPkgUp();
-    // TODO more appropriate type-guard
+    const packageJsonContents = await readPackageUp();
     if (!packageJsonContents) {
       printError('Package.json not found');
     }
-    return packageJsonContents as PackageJsonContents;
+    return packageJsonContents;
   } catch (error) {
     printError("Couldn't parse the package.json", { error });
     return undefined;

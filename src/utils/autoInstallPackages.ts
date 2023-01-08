@@ -36,7 +36,9 @@ export const autoInstallPackages = async (
       selectedProject,
       false,
     )}`;
+
     unImportantLogger.silly(`Detected package manager: ${pm}`);
+
     if (pm === 'pnpm' && selectedProject) {
       unImportantLogger.silly(
         `Installing dependendencies in project: ${selectedProject}`,
