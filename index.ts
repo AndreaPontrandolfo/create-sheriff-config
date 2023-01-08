@@ -11,7 +11,7 @@ import { setEslintConfig } from './src/utils/setEslintConfig';
 import { setPrettierConfig } from './src/utils/setPrettierConfig';
 import { setPrettierIgnore } from './src/utils/setPrettierIgnore';
 import { logger } from './src/utils/logs';
-import lodash from 'lodash';
+import { isString } from 'lodash-es';
 
 type Command = Arguments<{
   filter: string | undefined;
@@ -35,7 +35,7 @@ async function main() {
 
     logger.info(`Selected path: "${response.path}"`);
 
-    if (lodash.isString(response.path)) {
+    if (isString(response.path)) {
       global.customProjectRootPath = response.path;
     }
   }
@@ -44,7 +44,7 @@ async function main() {
   await setSheriffConfig();
   await setPrettierConfig();
   await setPrettierIgnore();
-  await setDependencies(command?.filter);
+  // await setDependencies(command?.filter);
 }
 
 main();

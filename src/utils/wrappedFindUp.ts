@@ -3,13 +3,13 @@ import { resolve, dirname } from 'path';
 
 export const wrappedFindUp = async (fileNames: string | string[]) => {
   if (!global.customProjectRootPath) {
-    const filePath = findUpSync(fileNames);
+    const filePath = await findUp(fileNames);
     return filePath;
   }
 
   if (global.customProjectRootPath) {
     const stopAt = resolve(global.customProjectRootPath);
-    const filePath = findUpSync(fileNames, {
+    const filePath = await findUp(fileNames, {
       cwd: global.customProjectRootPath,
     });
 
@@ -17,4 +17,6 @@ export const wrappedFindUp = async (fileNames: string | string[]) => {
       return filePath;
     }
   }
+
+  return undefined;
 };
