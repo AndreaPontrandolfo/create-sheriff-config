@@ -14,7 +14,7 @@ export const setPrettierConfig = async () => {
   const root = await getPackageJsonContents();
   if (!root) {
     printError("couldn't read the package.json.");
-    return [];
+    return;
   }
   const PREFERRED_PRETTIER_CONFIG_FILE_NAME = '.prettierrc.json';
   const prettierConfigFileNames = [

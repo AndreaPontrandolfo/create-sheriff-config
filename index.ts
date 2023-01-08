@@ -44,7 +44,7 @@ async function main() {
   await setSheriffConfig();
   await setPrettierConfig();
   await setPrettierIgnore();
-  // await setDependencies(command?.filter);
+  await setDependencies(command?.filter);
 }
 
 main();

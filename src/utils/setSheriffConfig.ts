@@ -9,7 +9,7 @@ export const setSheriffConfig = async () => {
   const root = await getPackageJsonContents();
   if (!root) {
     printError("couldn't read the package.json.");
-    return [];
+    return;
   }
   const userProjectDependencies = {
     ...root.packageJson.dependencies,

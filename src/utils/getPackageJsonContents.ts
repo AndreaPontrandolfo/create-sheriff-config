@@ -19,5 +19,6 @@ export const getPackageJsonContents = async () => {
     return packageJsonContents as PackageJsonContents;
   } catch (error) {
     printError("Couldn't parse the package.json", { error });
+    return undefined;
   }
 };
