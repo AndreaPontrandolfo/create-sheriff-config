@@ -1,8 +1,8 @@
-import findUp from 'find-up';
 import { createFile } from './createFile';
 import { getPackageJsonContents } from './getPackageJsonContents';
 import { logger } from './logs';
 import { printError } from './printError';
+import { wrappedFindUp } from './wrappedFindUp';
 
 const prettierConfigRawText = `{
   "trailingComma": "all",
@@ -30,7 +30,7 @@ export const setPrettierConfig = async () => {
     '.prettierrc.toml',
   ];
   try {
-    const prettierConfigFile = await findUp(prettierConfigFileNames);
+    const prettierConfigFile = await wrappedFindUp(prettierConfigFileNames);
     if (prettierConfigFile || root.packageJson?.devDependencies?.prettier) {
       logger.verbose(
         `An already present 'prettier' configuration was found in the project. Skipping '${PREFERRED_PRETTIER_CONFIG_FILE_NAME}' file generation and configuration.`,

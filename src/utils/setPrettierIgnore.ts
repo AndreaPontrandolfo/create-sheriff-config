@@ -1,7 +1,7 @@
-import findUp from 'find-up';
 import { createFile } from './createFile';
 import { logger } from './logs';
 import { printError } from './printError';
+import { wrappedFindUp } from './wrappedFindUp';
 
 const prettierIgnoreRawText = `/node_modules/
 /dist/
@@ -14,7 +14,7 @@ export const setPrettierIgnore = async () => {
   const PRETTIER_IGNORE_FILE_NAME = '.prettierignore';
 
   try {
-    const prettierIgnoreFile = await findUp(PRETTIER_IGNORE_FILE_NAME);
+    const prettierIgnoreFile = await wrappedFindUp(PRETTIER_IGNORE_FILE_NAME);
     if (prettierIgnoreFile) {
       logger.verbose(
         `An already present '${PRETTIER_IGNORE_FILE_NAME}' file was found in the project. Skipping '${PRETTIER_IGNORE_FILE_NAME}' file generation and configuration.`,

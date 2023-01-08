@@ -1,6 +1,7 @@
 {
   "name": "create-sheriff-config",
   "version": "0.0.0-development",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -23,7 +24,7 @@
     "chalk": "^5.0.1",
     "commander": "^9.4.1",
     "detect-package-manager": "^2.0.1",
-    "find-up": "5.0.0",
+    "find-up": "6.3.0",
     "ora": "^6.1.2",
     "prompts": "^2.4.2",
     "read-pkg-up": "7.0.1",

@@ -1,9 +1,9 @@
-import findUp from 'find-up';
 import { createFile } from './createFile';
 import { getPackageJsonContents } from './getPackageJsonContents';
 import { logger } from './logs';
 import { printError } from './printError';
 import { printWarning } from './printWarning';
+import { wrappedFindUp } from './wrappedFindUp';
 
 const eslintConfigRawText = {
   esm: `import sheriff from 'eslint-config-sheriff';
@@ -21,8 +21,8 @@ export const setEslintConfig = async () => {
   const ESLINT_IGNORE_FILE_NAME = '.eslintignore';
 
   try {
-    const eslintConfigFile = await findUp(ESLINT_CONFIG_FILE_NAME);
-    const eslintIgnoreFile = await findUp(ESLINT_IGNORE_FILE_NAME);
+    const eslintConfigFile = await wrappedFindUp(ESLINT_CONFIG_FILE_NAME);
+    const eslintIgnoreFile = await wrappedFindUp(ESLINT_IGNORE_FILE_NAME);
 
     if (eslintIgnoreFile) {
       printWarning(
