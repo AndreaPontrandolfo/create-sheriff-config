@@ -16,6 +16,7 @@
     "entry": [
       "index.ts"
     ],
+    "format": "esm",
     "splitting": false,
     "sourcemap": false,
     "clean": true
@@ -35,7 +36,7 @@
     "yargs": "^17.6.2"
   },
   "bin": {
-    "create-sheriff-config": "./dist/index.cjs"
+    "create-sheriff-config": "./dist/index.js"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.191",

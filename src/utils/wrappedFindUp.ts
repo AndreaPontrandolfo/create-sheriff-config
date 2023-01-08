@@ -1,4 +1,4 @@
-import { findUp, findUpSync } from 'find-up';
+import { findUp } from 'find-up';
 import { resolve, dirname } from 'path';
 
 export const wrappedFindUp = async (fileNames: string | string[]) => {
