@@ -1,9 +1,8 @@
 import findUp from 'find-up';
-import { writeFileSync } from 'fs';
+import { createFile } from './createFile';
 import { getPackageJsonContents } from './getPackageJsonContents';
 import { logger } from './logs';
 import { printError } from './printError';
-import { printSucces } from './printSucces';
 import { printWarning } from './printWarning';
 
 const eslintConfigRawText = {
@@ -46,27 +45,19 @@ export const setEslintConfig = async () => {
       'If you have other Eslint configs in your project, remove them',
     );
 
-    try {
-      const root = await getPackageJsonContents();
-      if (!root) {
-        printError("couldn't read the package.json.");
-        writeFileSync(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText.commonjs);
-      }
-      if (root) {
-        if (root.packageJson.type === 'module') {
-          writeFileSync(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText.esm);
-        } else {
-          writeFileSync(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText.commonjs);
-        }
-      }
-      printSucces(`Successfully generated ${ESLINT_CONFIG_FILE_NAME} file`);
-    } catch (error) {
-      printError(
-        `Couldn't write ${ESLINT_CONFIG_FILE_NAME} file to the filesystem`,
-        {
-          error,
-        },
+    const root = await getPackageJsonContents();
+    if (!root) {
+      printWarning(
+        "couldn't read the package.json. Defaulting to Commonjs imports style",
       );
+      createFile(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText.commonjs);
+    }
+    if (root) {
+      if (root.packageJson.type === 'module') {
+        createFile(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText.esm);
+      } else {
+        createFile(ESLINT_CONFIG_FILE_NAME, eslintConfigRawText.commonjs);
+      }
     }
   } catch (error) {
     printError("Couldn't walk up the filesystem", { error });

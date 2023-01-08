@@ -20,9 +20,9 @@ const command = yargs.argv as Command;
 
 async function main() {
   if (command?.filter) {
-    logger.info(
+    logger.verbose(
       `It looks like you are trying to install the sheriff config in a workspace' package.
-Please specify the package' path...`,
+           Please specify the package' path...`,
     );
 
     const response = await prompts({
@@ -32,14 +32,15 @@ Please specify the package' path...`,
       initial: '.',
     });
 
-    logger.verbose(`Selected path: "${response.path}"`);
+    logger.info(`Selected path: "${response.path}"`);
+    global.customProjectRootPath = response.path;
   }
 
-  // await setEslintConfig();
-  // await setSheriffConfig();
-  // await setPrettierConfig();
-  // await setPrettierIgnore();
-  // await setDependencies(command?.filter);
+  await setEslintConfig();
+  await setSheriffConfig();
+  await setPrettierConfig();
+  await setPrettierIgnore();
+  await setDependencies(command?.filter);
 }
 
 main();

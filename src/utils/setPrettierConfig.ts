@@ -1,9 +1,8 @@
 import findUp from 'find-up';
-import { writeFileSync } from 'fs';
+import { createFile } from './createFile';
 import { getPackageJsonContents } from './getPackageJsonContents';
 import { logger } from './logs';
 import { printError } from './printError';
-import { printSucces } from './printSucces';
 
 const prettierConfigRawText = `{
   "trailingComma": "all",
@@ -41,19 +40,7 @@ export const setPrettierConfig = async () => {
     logger.verbose(
       `No 'prettier' configuration was found in the project. Generating and configuring '${PREFERRED_PRETTIER_CONFIG_FILE_NAME}' file...`,
     );
-    try {
-      writeFileSync(PREFERRED_PRETTIER_CONFIG_FILE_NAME, prettierConfigRawText);
-      printSucces(
-        `Successfully generated ${PREFERRED_PRETTIER_CONFIG_FILE_NAME} file`,
-      );
-    } catch (error) {
-      printError(
-        `Couldn't write ${PREFERRED_PRETTIER_CONFIG_FILE_NAME} file to the filesystem`,
-        {
-          error,
-        },
-      );
-    }
+    createFile(PREFERRED_PRETTIER_CONFIG_FILE_NAME, prettierConfigRawText);
   } catch (error) {
     printError("Couldn't walk up the filesystem", { error });
   }

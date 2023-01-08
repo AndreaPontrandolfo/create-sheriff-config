@@ -1,9 +1,8 @@
-import { writeFileSync } from 'fs';
+import { createFile } from './createFile';
 import { getPackageJsonContents } from './getPackageJsonContents';
 import { logger } from './logs';
 import { printError } from './printError';
-import { printSucces } from './printSucces';
-import { spinnerSuccess, updateSpinnerText } from './spinner';
+// import { spinnerSuccess, updateSpinnerText } from './spinner';
 
 export const setSheriffConfig = async () => {
   const SHERIFF_CONFIG_FILE_NAME = '.sheriffrc.json';
@@ -89,20 +88,10 @@ export const setSheriffConfig = async () => {
   );
 
   // updateSpinnerText("Creating '.sheriffrc.json'...");
-  try {
-    writeFileSync(
-      SHERIFF_CONFIG_FILE_NAME,
-      JSON.stringify(finalPluginsConfigurationSetup, null, 2),
-    );
-    printSucces(`Successfully generated ${SHERIFF_CONFIG_FILE_NAME} file`);
-  } catch (error) {
-    printError(
-      `Couldn't write ${SHERIFF_CONFIG_FILE_NAME} file to the filesystem`,
-      {
-        error,
-      },
-    );
-  }
+  createFile(
+    SHERIFF_CONFIG_FILE_NAME,
+    JSON.stringify(finalPluginsConfigurationSetup, null, 2),
+  );
 
   // spinnerSuccess(
   //   "Successfully created '.sheriffrc.json' file at project root.",
