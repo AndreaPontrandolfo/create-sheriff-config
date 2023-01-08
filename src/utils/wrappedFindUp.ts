@@ -1,12 +1,20 @@
-import { findUp } from 'find-up';
+import { findUp, findUpSync } from 'find-up';
+import { resolve, dirname } from 'path';
 
 export const wrappedFindUp = async (fileNames: string | string[]) => {
-  console.log(
-    '🚀 ~ file: wrappedFindUp.ts:5 ~ wrappedFindUp ~ global.customProjectRootPath',
-    global.customProjectRootPath,
-  );
-  const foundFile = await findUp(fileNames, {
-    stopAt: global.customProjectRootPath,
-  });
-  return foundFile;
+  if (!global.customProjectRootPath) {
+    const filePath = findUpSync(fileNames);
+    return filePath;
+  }
+
+  if (global.customProjectRootPath) {
+    const stopAt = resolve(global.customProjectRootPath);
+    const filePath = findUpSync(fileNames, {
+      cwd: global.customProjectRootPath,
+    });
+
+    if (filePath && dirname(filePath) === stopAt) {
+      return filePath;
+    }
+  }
 };

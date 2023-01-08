@@ -11,12 +11,13 @@ import { setEslintConfig } from './src/utils/setEslintConfig';
 import { setPrettierConfig } from './src/utils/setPrettierConfig';
 import { setPrettierIgnore } from './src/utils/setPrettierIgnore';
 import { logger } from './src/utils/logs';
+import lodash from 'lodash';
 
 type Command = Arguments<{
   filter: string | undefined;
 }>;
 
-const command = yargs.argv as Command;
+const command = yargs(process.argv.slice(2)).argv as Command;
 
 async function main() {
   if (command?.filter) {
@@ -33,7 +34,10 @@ async function main() {
     });
 
     logger.info(`Selected path: "${response.path}"`);
-    global.customProjectRootPath = response.path;
+
+    if (lodash.isString(response.path)) {
+      global.customProjectRootPath = response.path;
+    }
   }
 
   await setEslintConfig();

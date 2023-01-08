@@ -1,5 +1,5 @@
 export {};
 
 declare global {
-  var customProjectRootPath: string;
+  var customProjectRootPath: string | undefined;
 }

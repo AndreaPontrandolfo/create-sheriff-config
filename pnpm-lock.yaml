@@ -1,13 +1,15 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/lodash': ^4.14.191
   '@types/node': ^18.8.2
   '@types/prompts': ^2.4.2
   '@types/yargs': ^17.0.18
   chalk: ^5.0.1
   commander: ^9.4.1
   detect-package-manager: ^2.0.1
-  find-up: 6.3.0
+  find-up: ^6.3.0
+  lodash: ^4.17.21
   ora: ^6.1.2
   prompts: ^2.4.2
   read-pkg-up: 7.0.1
@@ -24,6 +26,7 @@ dependencies:
   commander: 9.4.1
   detect-package-manager: 2.0.1
   find-up: 6.3.0
+  lodash: 4.17.21
   ora: 6.1.2
   prompts: 2.4.2
   read-pkg-up: 7.0.1
@@ -33,6 +36,7 @@ dependencies:
   yargs: 17.6.2
 
 devDependencies:
+  '@types/lodash': 4.14.191
   '@types/node': 18.8.2
   '@types/prompts': 2.4.2
   '@types/yargs': 17.0.18
@@ -345,6 +349,10 @@ packages:
   /@tootallnate/once/2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
+    dev: true
+
+  /@types/lodash/4.14.191:
+    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
     dev: true
 
   /@types/minimist/1.2.2:
@@ -1654,7 +1662,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /log-symbols/5.1.0:
     resolution: {integrity: sha512-l0x2DvrW294C9uDCoQe1VSU4gf529FkSZ6leBl4TiqZH/e+0R7hSfHQBNut2mNygDgHwvYHfFLn6Oxb3VWj2rA==}
