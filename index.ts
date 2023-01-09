@@ -20,6 +20,7 @@ type Command = Arguments<{
 const command = yargs(process.argv.slice(2)).argv as Command;
 
 async function main() {
+  // TODO: esportare questa logica
   if (command?.filter) {
     logger.verbose(
       `It looks like you are trying to install the sheriff config in a workspace' package.
@@ -38,6 +39,8 @@ async function main() {
     if (isString(response.path)) {
       global.customProjectRootPath = response.path;
     }
+
+    // TODO: ask the user if he want Prettier support in the workspace' package directory
   }
 
   await setEslintConfig();
