@@ -2,10 +2,12 @@ import { getPackageJsonContents } from './getPackageJsonContents';
 import { logger, unImportantLogger } from './logs';
 import { printError } from './printError';
 
-export const getRequiredPackages = async () => {
+export const getRequiredPackages = async (): Promise<string[]> => {
   const root = await getPackageJsonContents();
+
   if (!root) {
     printError("couldn't read the package.json.");
+
     return [];
   }
 

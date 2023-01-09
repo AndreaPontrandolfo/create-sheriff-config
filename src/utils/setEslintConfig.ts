@@ -16,7 +16,7 @@ const { defineFlatConfig } = require('eslint-define-config');
 module.exports = defineFlatConfig([...sheriff]);`,
 };
 
-export const setEslintConfig = async () => {
+export const setEslintConfig = async (): Promise<void> => {
   const ESLINT_CONFIG_FILE_NAME = 'eslint.config.js';
   const ESLINT_IGNORE_FILE_NAME = '.eslintignore';
 
@@ -34,6 +34,7 @@ export const setEslintConfig = async () => {
       logger.verbose(
         `'${ESLINT_CONFIG_FILE_NAME}' file found. Skipping '${ESLINT_CONFIG_FILE_NAME}' file generation and configuration.`,
       );
+
       return;
     }
 
@@ -46,6 +47,7 @@ export const setEslintConfig = async () => {
     );
 
     const root = await getPackageJsonContents();
+
     if (!root) {
       printWarning(
         "couldn't read the package.json. Defaulting to Commonjs imports style",

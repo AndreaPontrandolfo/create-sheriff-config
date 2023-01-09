@@ -1,9 +1,12 @@
-import { findUp } from 'find-up';
 import { resolve, dirname } from 'path';
+import { findUp } from 'find-up';
 
-export const wrappedFindUp = async (fileNames: string | string[]) => {
+export const wrappedFindUp = async (
+  fileNames: string | string[],
+): Promise<string | undefined> => {
   if (!global.customProjectRootPath) {
     const filePath = await findUp(fileNames);
+
     return filePath;
   }
 

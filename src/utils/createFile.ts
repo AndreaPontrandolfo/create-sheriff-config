@@ -2,9 +2,9 @@ import { writeFile } from 'fs';
 import { printError } from './printError';
 import { printSucces } from './printSucces';
 
-export const createFile = (fileName: string, fileBody: string) => {
+export const createFile = (fileName: string, fileBody: string): void => {
   const completeFilePath = `${global.customProjectRootPath ?? ''}${
-    !global.customProjectRootPath || global.customProjectRootPath?.endsWith('/')
+    !global.customProjectRootPath || global.customProjectRootPath.endsWith('/')
       ? ''
       : '/'
   }${fileName}`;

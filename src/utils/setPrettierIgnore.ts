@@ -10,15 +10,17 @@ const prettierIgnoreRawText = `/node_modules/
 /coverage/
 .git/`;
 
-export const setPrettierIgnore = async () => {
+export const setPrettierIgnore = async (): Promise<void> => {
   const PRETTIER_IGNORE_FILE_NAME = '.prettierignore';
 
   try {
     const prettierIgnoreFile = await wrappedFindUp(PRETTIER_IGNORE_FILE_NAME);
+
     if (prettierIgnoreFile) {
       logger.verbose(
         `An already present '${PRETTIER_IGNORE_FILE_NAME}' file was found in the project. Skipping '${PRETTIER_IGNORE_FILE_NAME}' file generation and configuration.`,
       );
+
       return;
     }
     logger.verbose(

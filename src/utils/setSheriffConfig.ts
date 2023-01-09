@@ -4,11 +4,13 @@ import { logger } from './logs';
 import { printError } from './printError';
 // import { spinnerSuccess, updateSpinnerText } from './spinner';
 
-export const setSheriffConfig = async () => {
+export const setSheriffConfig = async (): Promise<void> => {
   const SHERIFF_CONFIG_FILE_NAME = '.sheriffrc.json';
   const root = await getPackageJsonContents();
+
   if (!root) {
     printError("couldn't read the package.json.");
+
     return;
   }
   const userProjectDependencies = {
