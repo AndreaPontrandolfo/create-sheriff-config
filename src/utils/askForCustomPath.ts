@@ -1,5 +1,5 @@
 import promptShape from 'prompts';
-import { isString } from 'lodash';
+import { isString } from 'lodash-es';
 import { logger } from './logs';
 
 export const askForCustomPath = async (): Promise<void> => {
