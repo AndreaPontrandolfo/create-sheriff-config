@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import yargs, { type Arguments } from 'yargs';
-import prompts from 'prompts';
 // import { Command, program } from 'commander';
 // import { widgets } from './src/utils/widgets';
 // import { spinnerError, stopSpinner } from "./src/utils/spinner";
@@ -10,36 +9,19 @@ import { setDependencies } from './src/utils/setDependencies';
 import { setEslintConfig } from './src/utils/setEslintConfig';
 import { setPrettierConfig } from './src/utils/setPrettierConfig';
 import { setPrettierIgnore } from './src/utils/setPrettierIgnore';
-import { logger } from './src/utils/logs';
-import { isString } from 'lodash-es';
+import { askForCustomPath } from './src/utils/askForCustomPath';
 
-type Command = Arguments<{
-  filter: string | undefined;
-}>;
+type Command =
+  | Arguments<{
+      filter: string | undefined;
+    }>
+  | undefined;
 
 const command = yargs(process.argv.slice(2)).argv as Command;
 
-async function main() {
-  // TODO: esportare questa logica
+const main = async () => {
   if (command?.filter) {
-    logger.verbose(
-      `It looks like you are trying to install the sheriff config in a workspace' package.
-           Please specify the package' path...`,
-    );
-
-    const response = await prompts({
-      type: 'text',
-      name: 'path',
-      message: 'Package path',
-      initial: '.',
-    });
-
-    logger.info(`Selected path: "${response.path}"`);
-
-    if (isString(response.path)) {
-      global.customProjectRootPath = response.path;
-    }
-
+    await askForCustomPath();
     // TODO: ask the user if he want Prettier support in the workspace' package directory
   }
 
@@ -48,6 +30,6 @@ async function main() {
   await setPrettierConfig();
   await setPrettierIgnore();
   await setDependencies(command?.filter);
-}
+};
 
-main();
+await main();

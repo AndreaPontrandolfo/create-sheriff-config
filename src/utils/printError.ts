@@ -1,15 +1,12 @@
+import { isString } from 'lodash';
 import { logger } from './logs';
 
 interface Error {
-  error?: string | unknown;
+  error?: unknown;
 }
 
-export const printError = (message: string, { error }: Error = {}) => {
-  if (error) {
-    logger.error(new Error(`❌  ${message}. ${error}`));
-  }
+export const printError = (message: string, { error }: Error = {}): void => {
+  logger.error(`❌  ${message}. ${isString(error) ? error : String(error)}`);
 
-  if (!error) {
-    throw logger.error(new Error(`❌  ${message}.`));
-  }
+  throw new Error(`${isString(error) ? error : String(error)}`);
 };
