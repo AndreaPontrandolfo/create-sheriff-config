@@ -19,7 +19,8 @@ type Command =
 
 const command = yargs(process.argv.slice(2)).argv as Command;
 
-const main = async () => {
+// eslint-disable-next-line
+async function main() {
   if (command?.filter) {
     await askForCustomPath();
     // TODO: ask the user if he want Prettier support in the workspace' package directory
@@ -30,6 +31,7 @@ const main = async () => {
   await setPrettierConfig();
   await setPrettierIgnore();
   await setDependencies(command?.filter);
-};
+}
 
-await main();
+// eslint-disable-next-line
+main();
